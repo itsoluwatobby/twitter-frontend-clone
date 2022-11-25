@@ -1,215 +1,243 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import styled from 'styled-components';
+// import React, { useEffect, useRef, useState } from 'react';
+// //import { useNavigate, Link } from 'react-router-dom';
+// import styled from 'styled-components';
+// import { FaTwitter } from 'react-icons/fa';
 
-const ForgetPassword = () => {
-   const [email, setEmail] = useState('');
-   const emailRef = useRef();
-   const navigate = useNavigate();
-   const [error, setError] = useState('');
-   const [sentLink, setSetLink] = useState(false)
+// const ForgetPassword = () => {
+//    const [email, setEmail] = useState('');
+//    const emailRef = useRef();
+//    //const navigate = useNavigate();
+//    const [error, setError] = useState('');
+//    const [sentLink, setSentLink] = useState(false)
 
-   useEffect(() => {
-      emailRef.current.focus()
-      setSetLink(false)
-   }, []);
+//    useEffect(() => {
+//       emailRef.current.focus()
+//       setSentLink(false)
+//    }, []);
 
-   const handleForgetPassword = async(e) => {
-      e.preventDefault()
-      console.log(email)
-      setEmail('')
-      setSetLink(true)
-   }
+//    const handleForgetPassword = async(e) => {
+//       e.preventDefault()
+//       console.log(email)
+//       setEmail('')
+//       setSentLink(true)
+//    }
 
-   const canSubmit = Boolean(email.includes('@') && email.includes('.'))
+//    const canSubmit = Boolean(email.includes('@') && email.includes('.'))
 
-   let errorContent = ( 
-      <div style={errorStyle}>
-         <p>
-            {error}
-         </p>
-      </div>     
-   )
+//    let errorContent = ( 
+//       <div style={errorStyle}>
+//          <p>
+//             {error}
+//          </p>
+//       </div>     
+//    )
 
-  return (
-    <Container>
-      <div className="loginWrapper">
-         <div className="loginLeft">
-            <h3 className="loginLogo">Oluwatobby</h3>
-            <span className="loginDesc">Connect with friends and the world around you on Oluwatobby</span>
-         </div>
-         <form onSubmit={handleForgetPassword} className="loginRight">
-            <div className="loginBox">
-               {error && errorContent}
-               <input 
-                  type="email" 
-                  ref={emailRef}
-                  placeholder='Enter email'
-                  autoComplete='off'
-                  value= {email}
-                  className="loginInput" 
-                  onChange={e => setEmail(e.target.value)}   
-               />
-               <button 
-                  type="submit" 
-                  className={!canSubmit ? 'none' : 'loginButton'} 
-                     disabled={!canSubmit}
-                     >Reset Forgot</button>
-               {sentLink && <span className="loginForgot">Forgot Reset Password Link Sent</span>}
-               <button 
-                  type='button' 
-                  className="loginRegisterButton"
-                  >
-                     <Link className='links' to='/login'>Login into your Account</Link>
-               </button>
-            </div>
-         </form>
-      </div>
-    </Container>
-  );
-}
+//   return (
+//     <Container>
+//       <div className="loginWrapper">
+//          <div className="loginLeft">
+//             <h3 className="loginLogo">Oluwatobby <FaTwitter className='twitter'/></h3>
+//             <span className="loginDesc">Connect with friends and the world around you on Oluwatobby</span>
+//          </div>
+//          <form onSubmit={handleForgetPassword} className="loginRight">
+//             <div className="loginBox">
+//                {error && errorContent}
+//                <label htmlFor='email'>Email:</label>
+//                <input 
+//                   type="email" 
+//                   ref={emailRef}
+//                   placeholder='johnDoe@mail.co'
+//                   required
+//                   autoComplete='off'
+//                   value= {email}
+//                   className="loginInput" 
+//                   onChange={e => setEmail(e.target.value)}   
+//                />
+//                <button 
+//                   type="submit" 
+//                   className={!canSubmit ? 'none' : 'loginButton'} 
+//                      disabled={!canSubmit}
+//                      >Reset Password</button>
+//                {sentLink && <span className="loginForgot">Reset Password Link Sent</span>}
+//                <button 
+//                   type='button' 
+//                   className="loginRegisterButton"
+//                   >
+//                      {/* <Link className='links' to='/login'> */}
+//                         Login into your Account
+//                      {/* </Link> */}
+//                </button>
+//             </div>
+//          </form>
+//       </div>
+//     </Container>
+//   );
+// }
 
-export default ForgetPassword;
+// export default ForgetPassword;
 
-const Container = styled.div`
-   width: 100%;
-   height: 100vh;
-   background-color: #f0f2f5;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+// const Container = styled.div`
+//    width: 100%;
+//    height: 100vh;
+//    background-color: #f0f2f5;
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
 
-   .loginWrapper{
-      width: 70%;
-      height: 70%;
-      display: flex;
+//    label{
+//       gap: 0.2rem;
+//       font-weight: 600;
+//       margin-bottom: 0;
+//    }
 
-      .loginLeft, 
-      .loginRight{
-         flex: 1;
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-      }
+//    .loginWrapper{
+//       width: 70%;
+//       height: 70%;
+//       display: flex;
+//       gap: 2rem;
 
-      .loginLeft{
+//       .loginLeft, 
+//       .loginRight{
+//          flex: 1;
+//          display: flex;
+//          flex-direction: column;
+//          justify-content: center;
+//       }
 
-         .loginLogo{
-            font-size: 50px;
-            font-weight: 800;
-            color: #1775ee;
-         }
+//       .loginLeft{
+//          display: flex;
+//          flex-direction: column;
+//          gap: 0.2rem;
 
-         .loginDesc{
-            font-size: 24px;
-         }
-      }
+//          .loginLogo{
+//             font-size: 50px;
+//             font-weight: 800;
+//             color: #1775ee;
+//             display: flex;
+//             align-items: center;
+//             gap: 1rem;
 
-      .loginRight{
-         position: relative;
+//             .twitter{
+//                box-shadow: -2px 4px 16px rgba(0,0,0,0.5);
+//                border-radius: 50%;
+//                font-size: 65px;
+//             }
+//          }
 
-         .loginBox{
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            display: flex;
-            gap: 1rem;
-            flex-direction: column;
-            box-shadow: -2px 4px 16px rgba(0,0,0,0.2);
-            justify-content: space-between;
+//          .loginDesc{
+//             margin-top: -2rem;
+//             font-size: 24px;
+//             text-transform: capitalize;
+//          }
+//       }
 
-            .loginInput{
-               height: 50px;
-               border-radius: 10px;
-               border: 1px solid gray;
-               font-size: 18px;
-               padding-left: 10px;
+//       .loginRight{
+//          position: relative;
 
-               &:focus{
-                  outline: none
-               }
-            }
+//          .loginBox{
+//             padding: 20px;
+//             background-color: #ffffff;
+//             border-radius: 10px;
+//             display: flex;
+//             gap: 0.4rem;
+//             flex-direction: column;
+//             box-shadow: -2px 4px 16px rgba(0,0,0,0.2);
+//             justify-content: space-between;
 
-            .loginButton{
-               height: 45px;
-               border-radius: 10px;
-               border: none;
-               background-color: #1775ee;
-               color: white;
-               font-size: 20px;
-               font-weight: 500;
-               cursor: pointer;
-               transition: all 0.25s ease-in-out;
+//             .loginInput{
+//                height: 50px;
+//                border-radius: 10px;
+//                border: 1px solid gray;
+//                font-size: 18px;
+//                padding-left: 10px;
 
-               &:hover{
-                  filter: brightness(0.7);
-                  color: white;
-               }
+//                &:focus{
+//                   outline: none
+//                }
+//             }
 
-               &:active{
-                  filter: brightness(1);
-               }
-            }
+//             .loginButton{
+//                height: 45px;
+//                border-radius: 10px;
+//                border: none;
+//                background-color: #1775ee;
+//                color: white;
+//                font-size: 20px;
+//                margin-top: 0.5rem;
+//                font-weight: 500;
+//                cursor: pointer;
+//                transition: all 0.25s ease-in-out;
 
-            .loginForgot{
-               text-align: center;
-               color: #1775ee;
-               cursor: pointer;
-            }
+//                &:hover{
+//                   filter: brightness(0.7);
+//                   color: white;
+//                }
 
-            .loginRegisterButton{
-               width: 80%;
-               margin: 0 auto;
-               border-radius: 10px;
-               padding: 5px;
-               border: none;
-               background-color: #42b72a;
-               color: white;
-               font-size: 20px;
-               font-weight: 500;
-               cursor: pointer;
-               transition: all 0.25s ease-in-out;
+//                &:active{
+//                   filter: brightness(1);
+//                }
+//             }
 
-               &:hover{
-                  filter: brightness(0.7);
-                  color: white;
-               }
+//             .loginForgot{
+//                text-align: center;
+//                color: #1775ee;
+//                cursor: pointer;
+//             }
 
-               &:active{
-                  filter: brightness(1);
-               }
+//             .loginRegisterButton{
+//                width: 80%;
+//                margin: 0 auto;
+//                border-radius: 10px;
+//                padding: 5px;
+//                border: none;
+//                background-color: #42b72a;
+//                color: white;
+//                font-size: 20px;
+//                font-weight: 500;
+//                cursor: pointer;
+//                transition: all 0.25s ease-in-out;
 
-               .links{
-                  color: white;
-                  text-decoration: none;
-               }
-            }
+//                &:hover{
+//                   filter: brightness(0.7);
+//                   color: white;
+//                }
 
-            .none{
-               height: 50px;
-               border-radius: 10px;
-               border: none;
-               background-color: lightgray;
-               color: white;
-               font-size: 20px;
-               font-weight: 500;
-               cursor: pointer;
-               transition: all 0.25s ease-in-out;
-            }
-         }
-      }
+//                &:active{
+//                   filter: brightness(1);
+//                }
 
-      @media (max-width: 768px){
-         flex-direction: column;
-         gap: 1rem;
-      }
-   }
+//                .links{
+//                   color: white;
+//                   text-decoration: none;
+//                }
+//             }
 
-   @media (max-width: 768px){
-      align-items: flex-start;
-      padding-top: 4rem;
-   }
-`
-const errorStyle={
-   display: 'flex', width: '72%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightgray', borderRadius: '10px', padding: '18px', color: 'red', fontSize: '24px', right: '50px', top: '40px', zIndex: '5', position: 'absolute', whiteSpace: 'nowrap'
-}
+//             .none{
+//                height: 50px;
+//                border-radius: 10px;
+//                border: none;
+//                background-color: lightgray;
+//                color: white;
+//                font-size: 20px;
+//                margin-top: 0.5rem;
+//                font-weight: 500;
+//                cursor: pointer;
+//                transition: all 0.25s ease-in-out;
+//             }
+//          }
+//       }
+
+//       @media (max-width: 768px){
+//          flex-direction: column;
+//          gap: 0.5rem;
+//       }
+//    }
+
+//    @media (max-width: 768px){
+//       align-items: flex-start;
+//       margin-top: -2rem;
+//    }
+// `
+// const errorStyle={
+//    display: 'flex', width: '72%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightgray', borderRadius: '10px', padding: '18px', color: 'red', fontSize: '24px', right: '28px', top: '40px', zIndex: '5', position: 'absolute', whiteSpace: 'nowrap'
+// }

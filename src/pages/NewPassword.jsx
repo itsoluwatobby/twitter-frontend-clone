@@ -5,63 +5,32 @@
 // import { FaTimes, FaCheck, FaInfoCircle, FaTwitter } from 'react-icons/fa';
 // //import { authUsers } from "../../api/axiosFetch";
 
-// const USER_REGEX = /^[A-Za-z][A-Za-z0-9_]{2,25}$/
 // const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,24}$/
-// const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-// const Register = () => {
+// const NewPassword = () => {
 //    //const navigate = useNavigate();
 //    const [show, setShow] = useState(false);
 //    const [error, setError] = useState('');
 //    const [loading, setLoading] = useState(false);
-//    const [validUsername, setValidUsername] = useState(false);
 //    const [validPassword, setValidPassword] = useState(false);
-//    const [validEmail, setValidEmail] = useState(false);
-//    const [match, setMatch] = useState(false);
 //    const [success, setSuccess] = useState(false);
-//    const [register, setRegister] = useState({
-//       username: '',
-//       email: '',
-//       password: '',
-//       confirmPassword: ''
-//    });
-
-//    const {username, email, password, confirmPassword} = register;
-
-//    const handleChange = (e) => {
-//       const name = e.target.name
-//       const value = e.target.value
-//       setRegister({...register, [name]: value})
-//    }
-
-//    useEffect(() => {
-//       const result = USER_REGEX.test(username);
-//       setValidUsername(result)
-//    }, [username])
-
-//    useEffect(() => {
-//       const result = EMAIL_REGEX.test(email);
-//       setValidEmail(result)
-//    }, [email])
+//    const [password, setPassword] = useState('');
 
 //    useEffect(() => {
 //       const validPass = PASSWORD_REGEX.test(password);
 //       setValidPassword(validPass)
-//       const match = password === confirmPassword;
-//       setMatch(match)
-//    }, [password, confirmPassword])
+//    }, [password])
 
 //    const handleRegister = async(e) => {
 //       e.preventDefault()
 //       setLoading(true)
 //       try{
-//          const name = USER_REGEX.test(username)
 //          const pass = PASSWORD_REGEX.test(password)
-//          const email = email.includes('@')
-//          if(name && pass && email){
+//          if(pass){
 //             // const response = await authUsers.post('/register', 
-//             // {username, email, password})
+//             // {password})
 //             setSuccess(true)
+//             setPassword('')
 //             //navigate('/login')
 //          }
 //          else setError('Inputs are not valid')
@@ -78,7 +47,7 @@
 //       }
 //    }
 
-//    const canSave = Object.values(register).every(Boolean)
+//    const canSave = Boolean(password)
 
 //    let successContent = ( 
 //       <div style={successStyle}>
@@ -104,68 +73,21 @@
 //          </div>
 //          <div className="loginRight">
 //             <form onSubmit={handleRegister} className="loginBox" onClick={() => setError(false)}>
-//                <label htmlFor='username'>
-//                   Username: {!username ? '' : validUsername ? <FaCheck className='green'/> : <FaTimes className='red'/>
-//                   }
-//                </label>
-//                <input 
-//                   type="username" 
-//                   id="username" 
-//                   name="username"
-//                   required
-//                   autoComplete='off'
-//                   minLength={3}
-//                   maxLength={25}
-//                   placeholder='Username' 
-//                   className="loginInput" 
-//                   onChange={handleChange}   
-//                />
-//                {!validUsername && username &&
-//                   <p style={passStyle}>
-//                      <FaInfoCircle />
-//                      <span>
-//                         Username must begin with a letter, can have a lowercase or uppercase, a minimum of 3 and maximum of 25 characters.
-//                      </span>
-//                   </p>
-//                }
-//                <label htmlFor='email'>
-//                   Email: {!email ? '' : validEmail ? <FaCheck className='green'/> : <FaTimes className='red'/> }
-//                </label>
-//                <input 
-//                   type="email" 
-//                   placeholder='johnDoe@mail.co'
-//                   name="email"
-//                   id="email"
-//                   minLength={5} 
-//                   maxLength={25} 
-//                   required
-//                   autoComplete='off'
-//                   className="loginInput" 
-//                   onChange={handleChange}   
-//                />
-//                {!validEmail && email &&
-//                   <p style={passStyle}>
-//                      <FaInfoCircle />
-//                      <span>
-//                         email begin with a letter or number, contains at least a @ symbol, a minimum of 5 and a maximum of 25 characters.
-//                      </span>
-//                   </p>
-//                }
 //                {success && successContent}
 //                {error && errorContent}
 //                <label htmlFor='password'>
-//                   Password: {!password ? '' : validUsername && validPassword ? <FaCheck className='green'/> : <FaTimes className='red'/> }
+//                   Password: {!password ? '' : validPassword ? <FaCheck className='green'/> : <FaTimes className='red'/> }
 //                </label>
 //                <div className="pass">
 //                   <input 
 //                      type={show ? "text" : "password"} 
 //                      placeholder='Password' 
-//                      name="password"
 //                      id="password"
 //                      required
+//                      value={password}
 //                      autoComplete='off'
 //                      className="loginInput" 
-//                      onChange={handleChange}   
+//                      onChange={e => setPassword(e.target.value)}   
 //                   />
 //                   {show ? 
 //                      <AiFillEyeInvisible 
@@ -180,7 +102,7 @@
 //                      />
 //                   }
 //                </div>
-//                {!validPassword && password && validUsername &&
+//                {!validPassword && password &&
 //                   <p style={passStyle}>
 //                      <FaInfoCircle />
 //                      <span>
@@ -188,51 +110,11 @@
 //                      </span>
 //                   </p>
 //                }
-//                <label>Confirm Password:</label> 
-//                <div className="pass">
-//                   <input 
-//                      type={show ? "text" : "password"} 
-//                      placeholder='Confirm Password' 
-//                      name='confirmPassword' 
-//                      required
-//                      autoComplete='off'
-//                      className="loginInput" 
-//                      onChange={handleChange}   
-//                   />
-//                   {show ? 
-//                      <AiFillEyeInvisible 
-//                         onClick={
-//                            () => setShow(prev => !prev)}
-//                            className='eyePass'
-//                      /> : 
-//                      <AiFillEye 
-//                         onClick={
-//                            () => setShow(prev => !prev)}
-//                            className='eyePass'
-//                      />
-//                   }
-//                </div>
-//                {validPassword && !match && confirmPassword &&
-//                   <p style={matchStyle}>
-//                      <FaInfoCircle />
-//                      <span>
-//                         password must be a match.
-//                      </span>
-//                   </p>
-//                }
-//                {!password && confirmPassword &&
-//                   <p style={passStyle}>
-//                      <FaInfoCircle />
-//                      <span>
-//                         a valid password input is required first.
-//                      </span>
-//                   </p>
-//                }
+            
 //                   <button type="submit" 
-//                      className={(!canSave || !match) ? 'none' : 'loginButton'} 
-//                      disabled={!canSave && match && validPassword && validUsername}
-//                      >Sign Up</button>
-               
+//                      className={!canSave ? 'none' : 'loginButton'} 
+//                      disabled={!canSave && validPassword}
+//                      >reset password</button>
 //                {/* <Link className='links' to='/login'>    */}
 //                   <button 
 //                      type='button' 
@@ -252,7 +134,7 @@
 //   );
 // }
 
-// export default Register;
+// export default NewPassword;
 
 // const Container = styled.div`
 //    width: 100%;
@@ -261,7 +143,6 @@
 //    display: flex;
 //    align-items: center;
 //    justify-content: center;
-//    font-family: serif;
 
 //    label{
 //       display: flex;
@@ -305,29 +186,29 @@
 //       }
 
 //       .loginLeft{
-//          display: flex;
-//          flex-direction: column;
-//          gap: 0.2rem;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 0.2rem;
 
-//          .loginLogo{
-//             font-size: 50px;
-//             font-weight: 800;
-//             color: #1775ee;
-//             display: flex;
-//             align-items: center;
-//             gap: 1rem;
+//         .loginLogo{
+//           font-size: 50px;
+//           font-weight: 800;
+//           color: #1775ee;
+//           display: flex;
+//           align-items: center;
+//           gap: 1rem;
 
-//             .twitter{
-//                box-shadow: -2px 4px 16px rgba(0,0,0,0.5);
-//                border-radius: 50%;
-//                font-size: 65px;
-//             }
-//          }
+//           .twitter{
+//              box-shadow: -2px 4px 16px rgba(0,0,0,0.5);
+//              border-radius: 50%;
+//              font-size: 65px;
+//           }
+//        }
 
 //          .loginDesc{
-//             margin-top: -2rem;
-//             font-size: 24px;
-//             text-transform: capitalize;
+//           margin-top: -2rem;
+//           font-size: 24px;
+//           text-transform: capitalize;
 //          }
 //       }
 
@@ -393,7 +274,9 @@
 //                background-color: #1775ee;
 //                color: white;
 //                font-size: 20px;
+//                margin-top: 0.5rem;
 //                font-weight: 500;
+//                text-transform: capitalize;
 //                cursor: pointer;
 //                transition: all 0.25s ease-in-out;
 
@@ -414,6 +297,8 @@
 //                background-color: lightgray;
 //                color: white;
 //                font-size: 20px;
+//                margin-top: 0.5rem;
+//                text-transform: capitalize;
 //                font-weight: 500;
 //                cursor: pointer;
 //                transition: all 0.25s ease-in-out;
@@ -432,6 +317,7 @@
 //                border: none;
 //                background-color: #42b72a;
 //                color: white;
+//                margin-top: 0.2rem;
 //                font-size: 20px;
 //                font-weight: 500;
 //                cursor: pointer;
@@ -447,21 +333,11 @@
 //                }
 //             }
 //          }
-
-//          @media (min-width: 768px){
-
-//             .loginBox{
-
-//                .loginInput{
-
-//                }
-//             }
-//          }
 //       }
 
 //       @media (max-width: 768px){
 //          flex-direction: column;
-//          gap: 0.5rem;
+//          gap: 0.4rem;
 //       }
 //    }
 
@@ -480,10 +356,5 @@
 // }
 
 // const passStyle = {
-//    width: '100%', margin: '-8px 0 -3px 0', padding: '2px 5px 2px 5px', backgroundColor: 'black', borderRadius: '10px', color: 'white', textTransform: 'lowercase', fontSize: '14px', display: 'flex', flexDirection: 'column', textAlign: 'left'
+//    width: '97%', margin: '-2px 0 -3px 0', padding: '2px 5px 2px 5px', backgroundColor: 'black', borderRadius: '10px', color: 'white', textTransform: 'lowercase', fontSize: '14px', display: 'flex', flexDirection: 'column', textAlign: 'left'
 // }
-
-// const matchStyle = {
-//    backgroundColor: 'black', color: 'white', display: 'flex', alignItems: 'center', fontSize: '14px', borderRadius: '10px', padding: '10px', margin:'-9px 0 -5px 0'
-// }
-
