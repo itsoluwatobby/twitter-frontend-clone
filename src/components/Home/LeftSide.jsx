@@ -8,7 +8,7 @@ import { FaTwitter } from 'react-icons/fa'
 
 export const LeftSide = () => {
   return (
-    <aside className='flex-none w-[23%] h-full flex flex-col space-y-5'>
+    <aside className='pb-2 pr-3 bg-white z-10 flex-none w-[22%] h-screen flex flex-col space-y-4 pt-4'>
       <FaTwitter className='text-blue-500 text-3xl flex-none ml-5'/>
       <div className='flex-auto flex flex-col w-[85%] m-auto'>
         <div className='flex pt-3 pb-3 items-center gap-4 cursor-pointer hover:rounded-md hover:bg-gray-200 text-[20px]'>
@@ -45,14 +45,14 @@ export const LeftSide = () => {
         </div>
         <button className='rounded-full p-3 bg-blue-500 mt-2'>Tweet</button>
       </div>
-      <div className='flex items-center gap-2'>
-        <div className='w-14 h-14 rounded-full bg-blue-500 cursor-pointer'></div>
-        <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-2 m-auto h-20 w-full p-2 pl-3 pr-3 hover:bg-gray-300 hover:rounded-full'>
+        <img src='https://images.unsplash.com/photo-1634150872480-1a193b9ee47f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/>
+        <div className='w-full flex items-center gap-4 justify-between'>
           <p className='flex flex-col cursor-pointer'>
-            <span>Oluwatobiloba</span>
-            <span>@itsoluwatobby</span>
+            <span className='font-semibold'>Oluwatobiloba</span>
+            <span className='text-gray-800'>@itsoluwatobby</span>
           </p>
-          <RiMoreLine className='cursor-pointer'/>
+          <RiMoreLine className='cursor-pointer text-2xl font-semibold'/>
         </div>
       </div>
     </aside>

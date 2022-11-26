@@ -1,10 +1,11 @@
 import {BiSearch} from 'react-icons/bi'
-import { RiMoreLine } from 'react-icons/ri'
+import {MdDoubleArrow} from 'react-icons/md'
+import { RiMoreLine, RiMailAddLine } from 'react-icons/ri'
 import { TRENDS } from '../../../data/data'
 
 export const RightSide = () => {
   return (
-    <aside className='flex-none w-[30%] pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
+    <aside className='relative flex-none w-[31%] pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
       <div className='w-[97%] flex flex-col gap-4'>
         <div className='flex p-2.5 rounded-2xl items-center gap-2 bg-gray-200 w-full'>
           <BiSearch className='text-[22px]'/>
@@ -28,6 +29,17 @@ export const RightSide = () => {
               </div>
             ))
           }
+        </div>
+      </div>
+      <div className='message cursor-pointer fixed flex items-center justify-between w-[380px] bg-white p-3 right-5 bottom-0 border rounded-tl-lg rounded-tr-lg'>
+        <p className='font-semibold text-[22px] flex-auto'>Messages</p>
+        <div className='flex-none flex items-center justify-between w-14 text-2xl'>
+        <div className='cursor-pointer hover:bg-gray-200 p-[6px] hover:rounded-full text-[20px]'>
+          <RiMailAddLine cursor-pointer/>
+        </div>
+        <div className='cursor-pointer hover:bg-gray-200 p-[6px] hover:rounded-full text-[20px]'>
+          <MdDoubleArrow className='rotate-[268deg] cursor-pointer'/>
+        </div>
         </div>
       </div>
     </aside>

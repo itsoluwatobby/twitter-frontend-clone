@@ -7,3 +7,21 @@
 .App{
   font-family: 'Roboto', sans-serif;
 }
+
+.message{
+  box-shadow: -2px -4px 12px rgba(0,0,0,0.2);
+}
+
+.option{
+  box-shadow: -3px -4px 20px rgba(0,0,0,0.3);
+}
+
+.options{
+  box-shadow: -3px -4px 20px rgba(0,0,0,0.08);
+}
+
+.stick{
+  position: sticky;
+  top: 0;
+  align-self: flex-start; /* <-- this is the fix */
+}

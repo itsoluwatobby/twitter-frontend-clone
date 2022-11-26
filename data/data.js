@@ -1,4 +1,4 @@
-
+import { AiOutlineComment, AiOutlineRetweet, AiOutlineHeart } from 'react-icons/ai'
   
 export const users = [
     {
@@ -21,70 +21,61 @@ export const posts = [
       "name": "Elon Musk",
       "picture": '',
       "username": "@elonmusk",
+      "profilePic": 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0xZSpnLjy3U6n-r86s2fG0ytS18_SpOHyvQ&usqp=CAU',
       "tweet":  "love is the beghinning of all",
-      "dateTime": "2022-05-15|22:06:54",
-      "reactions":{
-        comments: '5',
-        retweets: '7,588',
-        likes: '52',
-        share: 'ok'
-      }
+      "dateTime": "5h",
+      "comment": '5',
+      "retweet": '7,588',
+      "heart": '52'
+      
     },
     {
       "id": 2,
-      "name": "Elon Musk",
-      "picture": '',
-      "username": "@elonmusk",
+      "name": "mary curey",
+      "picture": 'https://images.unsplash.com/photo-1669250738727-6f3f04fcbad6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+      "username": "@marycurey",
+      "profilePic": 'https://images.unsplash.com/photo-1657214059212-104dac959c56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       "tweet":  "love is the beghinning of all",
-      "dateTime": "2022-05-15|22:06:54",
-      "reactions":{
-        comments: '5',
-        retweets: '7,588',
-        likes: '52',
-        share: 'ok'
-      }
+      "dateTime": "5h",
+      "comment": '5',
+      "retweet": '7,588',
+      "heart": '52'
     },
     {
       "id": 3,
-      "name": "Elon Musk",
+      "name": "John doe",
       "picture": '',
-      "username": "@elonmusk",
+      "username": "@johndoe",
+      "profilePic": 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       "tweet":  "love is the beghinning of all",
-      "dateTime": "2022-05-15|22:06:54",
-      "reactions":{
-        comments: '5',
-        retweets: '7,588',
-        likes: '52',
-        share: 'ok'
-      }
+      "dateTime": "5h",
+      "comment": '5',
+      "retweet": '7,588',
+      "heart": '52'
     },
     {
       "id": 4,
-      "name": "Elon Musk",
-      "picture": '',
-      "username": "@elonmusk",
+      "name": "Samuel Erinton",
+      "picture": 'https://images.unsplash.com/photo-1661956602926-db6b25f75947?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+      "username": "@samuel erinton",
+      "profilePic": 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       "tweet":  "love is the beghinning of all",
-      "dateTime": "2022-05-15|22:06:54",
-      "reactions":{
-        comments: '5',
-        retweets: '7,588',
-        likes: '52',
-        share: 'ok'
-      }
+      "dateTime": "5h",
+      "comment": '5',
+      "retweet": '7,588',
+      "heart": '52'
     },
     {
       "id": 5,
-      "name": "Elon Musk",
-      "picture": '',
-      "username": "@elonmusk",
+      "name": "Dave Gray",
+      "picture": 'https://images.unsplash.com/photo-1669255182290-525a9840c93d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+      "username": "@davegray",
+      "profilePic": 'https://images.unsplash.com/photo-1657214059175-53cb22261d38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       "tweet":  "love is the beghinning of all",
-      "dateTime": "2022-05-15|22:06:54",
-      "reactions":{
-        comments: '5',
-        retweets: '7,588',
-        likes: '52',
-        share: 'ok'
-      }
+      "dateTime": "5h",
+      "comment": '5',
+      "retweet": '7,588',
+      "heart": '52'
     }
   ]
 
