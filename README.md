@@ -1,6 +1,6 @@
 # Twitter Clone
 ## Description
-> A presonal full stack project on twitter web page replication
+> A personal full stack project on twitter web page replication
 ___
 ## **Tools Used**
 * Javascript
