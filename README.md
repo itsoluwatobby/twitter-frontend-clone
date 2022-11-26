@@ -32,6 +32,7 @@ ___
 * [-] Deleting of posts/users by only admin
 * [-] Locking and Unlocking of users account by admin by only admin
 * [-] Users can update their info
+* [x] Users can delete their account
 * [-] Email verification based registration
 * [-] Email verification based password reset
 
