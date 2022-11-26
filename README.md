@@ -1,12 +1,19 @@
 # Twitter Clone ---FRONTEND
 ## Description
-> A personal full stack project on twitter web page replication
+> A personal react full stack project on twitter web page replication
 ___
 ## **Tools Used**
 * Javascript
 * HTML
 * Tailwindcss
 * cloudinary for image upload
+
+---
+
+```javascript
+using npm create vite@latest
+```
+---
 
 ## _Dependencies_
 * react-icons
