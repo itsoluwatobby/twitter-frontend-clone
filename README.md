@@ -1,4 +1,4 @@
-# Twitter Clone
+# Twitter Clone ---FRONTEND
 ## Description
 > A personal full stack project on twitter web page replication
 ___
