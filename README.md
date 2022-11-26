@@ -6,6 +6,7 @@ ___
 * Javascript
 * HTML
 * Tailwindcss
+* cloudinary for image upload
 
 ## _Dependencies_
 * react-icons
@@ -30,7 +31,7 @@ ___
 * [-] Granting of roles to users by only admin
 * [-] Deleting of posts/users by only admin
 * [-] Locking and Unlocking of users account by admin by only admin
-* [-] Users you will have the ability to update their info
+* [-] Users can update their info
 * [-] Email verification based registration
 * [-] Email verification based password reset
 
