@@ -15,4 +15,9 @@ ___
 
 ***
 ## _FEATURES_
+* [-] Tweets creation
+* [-] Tweets like, unlike
+* [-] Tweets share
+* [-] Tweets retweet
+
 
