@@ -27,6 +27,7 @@ using npm create vite@latest
 * [-] Tweets like, unlike
 * [-] Tweets update
 * [-] Tweets deletion
+* [x] Single tweet page
 * [-] Commenting on tweets
 * [-] Replying comments on tweets
 * [-] Tweets share
