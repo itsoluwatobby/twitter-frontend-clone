@@ -12,6 +12,7 @@ export const Top = () => {
   const [everyone, setEveryone] = useState(false);
   const [reply, setReply] = useState(false);
   const [count, setCount] = useState(0);
+  const [location, setLocation] = useState({});
 
   const handleTweet = async() => {
     setWhat(false)
@@ -19,21 +20,32 @@ export const Top = () => {
     setReply(false)
   }
 
+  const getLocation = () => {
+    if(!navigator.geolocation) return alert('Your browser does not support geolocation')
+    else{
+      navigator.geolocation.getCurrentPosition(position => {
+        const locationX = position.coords.longitude
+        const locationY = position.coords.latitude
+        const userLocation = {longitude: locationX, latitude: locationY}
+        setLocation(userLocation)
+      })
+    }
+  }
+
   return (
     <header className='bg-white relative flex flex-col w-full pl-2 pr-2 pb-3 gap-1 border-b-[1px]'>
-      <div className='flex w-full items-center justify-between text-2xl'>
-        <h1 className='font-semibold ml-3'>Home</h1>
-        <BsStars />
-      </div>
       <div className='cursor-pointer hover:bg-opacity-50 flex p-2.5 rounded-2xl items-center bg-transparent w-full'>
-        <div className='absolute top-12 w-14 h-14 rounded-full bg-blue-500 flex-none'></div>
+        <div className='absolute top-3 w-14 h-14 rounded-full bg-blue-500 flex-none'></div>
         {/* <img src={post?.profilePic} alt={post?.name} 
                 className='absolute top-12 cursor-pointer w-12 h-12 rounded-full object-cover flex-none'
               /> */}
-        <div className='pb-2 ml-[70px] flex flex-col w-full border-b-[1px]'>
+        <div className='pb-2 ml-[60px] flex flex-col w-full border-b-[1px]'>
          { what &&
             <div 
-              onClick={() => setEveryone(prev => !prev)}
+              onClick={() => {
+                setEveryone(prev => !prev)
+                setReply(false)
+              }}
               className='flex items-center gap-1 text-blue-500 font-[500] p-1 border rounded-2xl tracking-wide w-28 pl-2 pr-2 hover:bg-slate-100'>
               <p>Everyone</p>
               <IoIosArrowDown />
@@ -43,17 +55,20 @@ export const Top = () => {
             type="text"
             // ref={whatsRef}
             placeholder="What's happening?"
-            onFocus={() => setWhat(prev => !prev)}
+            onFocus={() => setWhat(true)}
             className='flex-auto mt-4 h-12 border-none pl-2 placeholder:text-gray-500 placeholder:text-[22px] focus:outline-none bg-transparent'
           />
           {what && 
             <div 
-              onClick={() => setReply(prev => !prev)}
+              onClick={() => {
+                setReply(prev => !prev)
+                setEveryone(false)
+              }}
               className='flex items-center gap-1 text-blue-500 font-[500] p-1 tracking-wide pl-2 pr-2 hover:bg-slate-200 w-48 rounded-full'>
               <FaGlobeAmericas />
               <p>Everyone can reply</p>
             </div>}
-            {everyone && <div className='option absolute top-[90px] left-0 w-[280px] bg-white flex flex-col gap-2 rounded-2xl pt-4 pb-4'>
+            {everyone && <div className='option z-20 absolute top-[45px] left-0 w-[280px] bg-white flex flex-col gap-2 rounded-2xl pt-4 pb-4'>
               <p className='flex-none font-semibold text-[22px] ml-3'>Choose audience</p>
               <div className='flex-auto flex flex-col w-full'>
                 <div className='flex items-center gap-2 p-4 hover:bg-gray-200 rounded-2xl'>
@@ -84,7 +99,7 @@ export const Top = () => {
                 </div>
               </div>
             </div>}
-            {reply && <div className='option absolute top-[180px] left-0 w-[340px] bg-white flex flex-col gap-2 rounded-2xl pt-4 pb-4'>
+            {reply && <div className='option z-20 absolute top-[140px] left-0 w-[340px] bg-white flex flex-col gap-2 rounded-2xl pt-4 pb-4'>
               <div className='flex-none flex flex-col font-semibold text-[18px] ml-3'>
                 <p>Who can reply?</p>
                 <p className='flex flex-col text-gray-500 text-base font-[500]'>
@@ -123,9 +138,16 @@ export const Top = () => {
         </div>
       </div>
       <div className='flex items-center w-full justify-between'>
-        <div className='flex items-center gap-3 ml-12 text-2xl text-blue-500'>
+        <div className='flex items-center gap-3 ml-14 text-2xl text-blue-500'>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
-            <TbPhoto />
+          <input 
+            type="file"
+            // ref={whatsRef}
+            accept='image/png'
+            id='photo'
+            hidden
+          />
+            <label htmlFor='photo' className='cursor-pointer'><TbPhoto /></label>
           </p>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <AiOutlineFileGif />
@@ -136,11 +158,17 @@ export const Top = () => {
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <VscSmiley />
           </p>
-          <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
-            <TbCalendarStats />
+          <p className='relative cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
+          <input 
+            type="date"
+            // ref={whatsRef}
+            id='date'
+            className='w-[28px] absolute top-[2px] focus:outline-none opacity-10 cursor-pointer'
+          />
+            <label htmlFor='date' className='cursor-pointer '><TbCalendarStats className=''/></label>
           </p>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
-            <VscLocation />
+            <VscLocation onClick={getLocation}/>
           </p>
         </div>
         <button 

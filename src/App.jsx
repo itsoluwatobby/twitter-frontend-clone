@@ -3,12 +3,14 @@
 // import ForgetPassword from './pages/ForgetPassword'
 //import NewPassword from './pages/NewPassword'
 import { Home } from './pages/Home'
+import { TweetPage } from './pages/TweetPage'
 
 function App() {
 
   return (
     <div className="App">
-      <Home />
+      <TweetPage />
+      {/* <Home /> */}
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <ForgetPassword /> */}

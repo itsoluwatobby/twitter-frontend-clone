@@ -79,6 +79,75 @@ export const posts = [
     }
   ]
 
+  export const postResponses = [
+    {
+      "id": 1,
+      "name": "Filler Mile",
+      "picture": 'https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      "replyingTo": 'Reply to',
+      "username": "@fillermile",
+      "profilePic": 'https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      "tweet":  "my song, pls retweet",
+      "dateTime": "3h",
+      "comment": '',
+      "retweet": '78',
+      "heart": '522'
+      
+    },
+    {
+      "id": 2,
+      "name": "adams smith",
+      "picture": 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      "replyingTo": 'Reply to',
+      "username": "@adamssmith",
+      "profilePic": 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      "tweet":  "credit alert",
+      "dateTime": "2h",
+      "comment": '15',
+      "retweet": '5',
+      "heart": '2'
+    },
+    {
+      "id": 3,
+      "name": "sarah muffins",
+      "picture": '',
+      "replyingTo": 'Reply to',
+      "username": "@sarahmuffins",
+      "profilePic": 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      "tweet":  "soothing appearance",
+      "dateTime": "15d",
+      "comment": '5',
+      "retweet": '8',
+      "heart": '52'
+    },
+    {
+      "id": 4,
+      "name": "Abel mark",
+      "picture": 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60',
+      "replyingTo": 'Reply to',
+      "username": "@abelmark",
+      "profilePic": 'https://images.unsplash.com/photo-1495216875107-c6c043eb703f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60',
+      "tweet":  "money and hot ladies",
+      "dateTime": "8h",
+      "comment": '50',
+      "retweet": '7,588',
+      "heart": '52'
+    },
+    {
+      "id": 5,
+      "name": "Perry Tail",
+      "picture": 'https://images.unsplash.com/photo-1657214058406-bb36358fe2f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8MjJ8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60',
+      "replyingTo": 'Reply to',
+      "username": "@perrytail",
+      "profilePic": 'https://images.unsplash.com/photo-1495216875107-c6c043eb703f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60',
+      "tweet":  "money money money!!",
+      "dateTime": "2W",
+      "comment": '2',
+      "retweet": '7',
+      "heart": '2'
+    }
+  ]
+
   export const TRENDS = [
     {
       "id": 1,
