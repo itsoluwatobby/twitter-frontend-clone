@@ -12,7 +12,7 @@ export const SingleTweet = () => {
 
   return (
     <div className='bg-white'>
-      <TopHome singleTweet/>
+     
       <div className='flex flex-col gap-4 pl-4 pr-4 relative'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
@@ -35,7 +35,7 @@ export const SingleTweet = () => {
         {/* Post */}
         <p className='text-lg font-medium'>What turns you on?</p>
         <div className='flex items-center gap-1 font-medium'>
-          <div className='flex items-center gap-1 font-medium hover:underline'>
+          <div className='flex items-center gap-1 font-medium hover:underline cursor-pointer'>
             <p className='flex items-center gap-1'>
               <span className='text-gray-500'>8:48</span>
               <span className='text-gray-400'>&#x2022;</span>
@@ -48,16 +48,16 @@ export const SingleTweet = () => {
           <p className='text-gray-500 hover:underline cursor-pointer'>Twitter for andriod</p>
         </div>
         <hr />
-        <div className='flex items-center gap-4'>
-          <p className='flex items-center gap-1'>
+        <div className='flex items-center gap-6'>
+          <p className='flex items-center gap-1 cursor-pointer hover:underline'>
             <span className='font-medium'>10</span>
             <span className='text-gray-500'>Retweets</span>
           </p>
-          <p className='flex items-center gap-1'>
+          <p className='flex items-center gap-1 cursor-pointer hover:underline'>
             <span className='font-medium'>100</span>
             <span className='text-gray-500'>Quote Tweets</span>
           </p>
-          <p className='flex items-center gap-1'>
+          <p className='flex items-center gap-1 cursor-pointer hover:underline'>
             <span className='font-medium'>45</span>
             <span className='text-gray-500'>Likes</span>
           </p>

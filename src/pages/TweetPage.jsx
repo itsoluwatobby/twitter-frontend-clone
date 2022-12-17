@@ -4,10 +4,8 @@ import { CenterTweet } from "../components/Tweetpage/CenterTweet"
 
 export const TweetPage = () => {
   return (
-    <section className="flex h-screen container">
-      <LeftSide />
+    <section className="flex h-screen max-w-fit">
       <CenterTweet />
-      <RightSide />
     </section>
   )
 }

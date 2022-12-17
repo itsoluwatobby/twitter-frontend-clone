@@ -23,3 +23,34 @@
 ::-webkit-scrollbar{
   width: 1px;
 }
+
+.home::after{
+  content: "";
+  position: absolute;
+  left: 2.1rem;
+  box-sizing: border-box;
+  top: 0.5rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(56, 85, 250, 0.6);
+}
+
+.before::after{
+  content: "+";
+  position: absolute;
+  left: 1.7rem;
+  box-sizing: border-box;
+  bottom: 11.2rem;
+  width: 10px;
+  height: 10px;
+  font-size: 22px;
+  border-radius: 50%;
+  color: white;
+}
+
+@media (min-width: 908px){
+  .home::after{
+    left: 1.2rem;
+  }
+}

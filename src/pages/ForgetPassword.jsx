@@ -1,243 +1,83 @@
-// import React, { useEffect, useRef, useState } from 'react';
-// //import { useNavigate, Link } from 'react-router-dom';
-// import styled from 'styled-components';
-// import { FaTwitter } from 'react-icons/fa';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { FaTwitter } from 'react-icons/fa';
 
-// const ForgetPassword = () => {
-//    const [email, setEmail] = useState('');
-//    const emailRef = useRef();
-//    //const navigate = useNavigate();
-//    const [error, setError] = useState('');
-//    const [sentLink, setSentLink] = useState(false)
+const ForgetPassword = () => {
+   const [email, setEmail] = useState('');
+   const emailRef = useRef();
+   //const navigate = useNavigate();
+   const [error, setError] = useState('');
+   const [sentLink, setSentLink] = useState(false)
 
-//    useEffect(() => {
-//       emailRef.current.focus()
-//       setSentLink(false)
-//    }, []);
+   useEffect(() => {
+      emailRef.current.focus()
+      setSentLink(false)
+   }, []);
 
-//    const handleForgetPassword = async(e) => {
-//       e.preventDefault()
-//       console.log(email)
-//       setEmail('')
-//       setSentLink(true)
-//    }
+   const handleForgetPassword = async(e) => {
+      e.preventDefault()
+      console.log(email)
+      setEmail('')
+      setSentLink(true)
+   }
 
-//    const canSubmit = Boolean(email.includes('@') && email.includes('.'))
+   const canSubmit = Boolean(email.includes('@') && email.includes('.'))
 
-//    let errorContent = ( 
-//       <div style={errorStyle}>
-//          <p>
-//             {error}
-//          </p>
-//       </div>     
-//    )
+   let errorContent = ( 
+      <div className='flex w-[72%] items-center justify-center bg-gray-400 rounded-[10px] text-2xl text-red-500 p-4 absolute top-10 right-7 z-20 whitespace-nowrap'>
+         <p>
+            {error}
+         </p>
+      </div>     
+   )
 
-//   return (
-//     <Container>
-//       <div className="loginWrapper">
-//          <div className="loginLeft">
-//             <h3 className="loginLogo">Oluwatobby <FaTwitter className='twitter'/></h3>
-//             <span className="loginDesc">Connect with friends and the world around you on Oluwatobby</span>
-//          </div>
-//          <form onSubmit={handleForgetPassword} className="loginRight">
-//             <div className="loginBox">
-//                {error && errorContent}
-//                <label htmlFor='email'>Email:</label>
-//                <input 
-//                   type="email" 
-//                   ref={emailRef}
-//                   placeholder='johnDoe@mail.co'
-//                   required
-//                   autoComplete='off'
-//                   value= {email}
-//                   className="loginInput" 
-//                   onChange={e => setEmail(e.target.value)}   
-//                />
-//                <button 
-//                   type="submit" 
-//                   className={!canSubmit ? 'none' : 'loginButton'} 
-//                      disabled={!canSubmit}
-//                      >Reset Password</button>
-//                {sentLink && <span className="loginForgot">Reset Password Link Sent</span>}
-//                <button 
-//                   type='button' 
-//                   className="loginRegisterButton"
-//                   >
-//                      {/* <Link className='links' to='/login'> */}
-//                         Login into your Account
-//                      {/* </Link> */}
-//                </button>
-//             </div>
-//          </form>
-//       </div>
-//     </Container>
-//   );
-// }
+  return (
+    <main className='container h-screen bg-blue-50 flex items-center justify-center midscreen:flex-col midscreen:-mt-10'>
+      <div className="w-3/4 h-3/4 flex gap-3 midscreen:flex-col midscreen:gap-2">
+         <div className="flex flex-none w-3/5 midscreen:w-full flex-col justify-center gap-2">
+            <h3 className="font-[800] text-5xl text-blue-500 flex items-center gap-4">Oluwatobby 
+              <div className='shadow-sm rounded-3xl text-6xl p-2 bg-blue-100'>
+                <FaTwitter className=''/>
+              </div>
+            </h3>
+            <span className="mt-2 text-2xl capitalize">Connect with friends and the world around you on Oluwatobby</span>
+         </div>
+         <form onSubmit={handleForgetPassword} className="flex flex-col justify-center relative flex-auto">
+            <div className="p-5 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-3.5">
+               {error && errorContent}
+               <div className='w-full flex flex-col'>
+                <label className='flex items-center gap-1 font-semibold mb-0' htmlFor='email'>Email:</label>
+                <input 
+                    type="email" 
+                    ref={emailRef}
+                    placeholder='johnDoe@mail.co'
+                    required
+                    autoComplete='off'
+                    value= {email}
+                    className="bg-blue-50 h-[45px] rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
+                    onChange={e => setEmail(e.target.value)}   
+                />
+               </div>
+               <button 
+                  type="submit" 
+                  className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSubmit && 'bg-gray-400'}`}
+                     disabled={!canSubmit}
+                     >Reset Password</button>
+               {sentLink && <span className="text-center text-blue-700 capitalize">Reset Password Link Sent To Your Email</span>}
+               <button 
+                  type='button' 
+                  className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"
+                  >
+                     <Link className='text-white' to='/login'>
+                        Login into your Account
+                     </Link>
+               </button>
+            </div>
+         </form>
+      </div>
+    </main>
+  );
+}
 
-// export default ForgetPassword;
-
-// const Container = styled.div`
-//    width: 100%;
-//    height: 100vh;
-//    background-color: #f0f2f5;
-//    display: flex;
-//    align-items: center;
-//    justify-content: center;
-
-//    label{
-//       gap: 0.2rem;
-//       font-weight: 600;
-//       margin-bottom: 0;
-//    }
-
-//    .loginWrapper{
-//       width: 70%;
-//       height: 70%;
-//       display: flex;
-//       gap: 2rem;
-
-//       .loginLeft, 
-//       .loginRight{
-//          flex: 1;
-//          display: flex;
-//          flex-direction: column;
-//          justify-content: center;
-//       }
-
-//       .loginLeft{
-//          display: flex;
-//          flex-direction: column;
-//          gap: 0.2rem;
-
-//          .loginLogo{
-//             font-size: 50px;
-//             font-weight: 800;
-//             color: #1775ee;
-//             display: flex;
-//             align-items: center;
-//             gap: 1rem;
-
-//             .twitter{
-//                box-shadow: -2px 4px 16px rgba(0,0,0,0.5);
-//                border-radius: 50%;
-//                font-size: 65px;
-//             }
-//          }
-
-//          .loginDesc{
-//             margin-top: -2rem;
-//             font-size: 24px;
-//             text-transform: capitalize;
-//          }
-//       }
-
-//       .loginRight{
-//          position: relative;
-
-//          .loginBox{
-//             padding: 20px;
-//             background-color: #ffffff;
-//             border-radius: 10px;
-//             display: flex;
-//             gap: 0.4rem;
-//             flex-direction: column;
-//             box-shadow: -2px 4px 16px rgba(0,0,0,0.2);
-//             justify-content: space-between;
-
-//             .loginInput{
-//                height: 50px;
-//                border-radius: 10px;
-//                border: 1px solid gray;
-//                font-size: 18px;
-//                padding-left: 10px;
-
-//                &:focus{
-//                   outline: none
-//                }
-//             }
-
-//             .loginButton{
-//                height: 45px;
-//                border-radius: 10px;
-//                border: none;
-//                background-color: #1775ee;
-//                color: white;
-//                font-size: 20px;
-//                margin-top: 0.5rem;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-
-//                &:hover{
-//                   filter: brightness(0.7);
-//                   color: white;
-//                }
-
-//                &:active{
-//                   filter: brightness(1);
-//                }
-//             }
-
-//             .loginForgot{
-//                text-align: center;
-//                color: #1775ee;
-//                cursor: pointer;
-//             }
-
-//             .loginRegisterButton{
-//                width: 80%;
-//                margin: 0 auto;
-//                border-radius: 10px;
-//                padding: 5px;
-//                border: none;
-//                background-color: #42b72a;
-//                color: white;
-//                font-size: 20px;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-
-//                &:hover{
-//                   filter: brightness(0.7);
-//                   color: white;
-//                }
-
-//                &:active{
-//                   filter: brightness(1);
-//                }
-
-//                .links{
-//                   color: white;
-//                   text-decoration: none;
-//                }
-//             }
-
-//             .none{
-//                height: 50px;
-//                border-radius: 10px;
-//                border: none;
-//                background-color: lightgray;
-//                color: white;
-//                font-size: 20px;
-//                margin-top: 0.5rem;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-//             }
-//          }
-//       }
-
-//       @media (max-width: 768px){
-//          flex-direction: column;
-//          gap: 0.5rem;
-//       }
-//    }
-
-//    @media (max-width: 768px){
-//       align-items: flex-start;
-//       margin-top: -2rem;
-//    }
-// `
-// const errorStyle={
-//    display: 'flex', width: '72%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightgray', borderRadius: '10px', padding: '18px', color: 'red', fontSize: '24px', right: '28px', top: '40px', zIndex: '5', position: 'absolute', whiteSpace: 'nowrap'
-// }
+export default ForgetPassword;

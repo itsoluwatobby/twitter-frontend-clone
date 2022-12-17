@@ -5,11 +5,11 @@ export const Card = ({post, setDisplay, singleTweet, setDisplay2, postResponse, 
   
   return (
     <div 
-      onMouseEnter={() => singleTweet && setDisplay2(true) || setUserRes(true) || setDisplay(true)
+      onMouseEnter={() => singleTweet && setDisplay2(true) && !userRes || userRes && setUserRes(true) || setDisplay(true)
       }
-      onMouseLeave={() => singleTweet && setDisplay2(false) || setUserRes(false) || setDisplay(false)
+      onMouseLeave={() => singleTweet && setDisplay2(false) && !userRes || userRes && setUserRes(false) || setDisplay(false)
       }
-      className={`option z-20 rounded-3xl bg-white flex flex-col pt-4 pb-4 p-3 gap-2.5 w-80 absolute top-[33px] left-0 ${userRes && 'top-20'}`}>
+      className={`option z-30 rounded-3xl bg-white flex flex-col pt-4 pb-4 p-3 gap-2.5 w-80 absolute top-[32px] left-0 ${userRes && 'top-[56px]'}`}>
       <div className='relative'>
         <img src={(userRes || singleTweet) && 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' || centerTweet && postResponse?.profilePic || post?.profilePic} alt='' className='flex-none w-20 h-20 rounded-full object-cover cursor-pointer'/>
         <button 

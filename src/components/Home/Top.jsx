@@ -152,19 +152,19 @@ export const Top = () => {
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <AiOutlineFileGif />
           </p>
-          <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
+          <p className='cursor-pointer midscreen:hidden hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <IoMdSwitch />
           </p>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <VscSmiley />
           </p>
-          <p className='relative cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
-          <input 
-            type="date"
-            // ref={whatsRef}
-            id='date'
-            className='w-[28px] absolute top-[2px] focus:outline-none opacity-10 cursor-pointer'
-          />
+          <p className='midscreen:hidden relative cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
+            <input 
+              type="date"
+              // ref={whatsRef}
+              id='date'
+              className='w-[28px] absolute top-[2px] focus:outline-none opacity-[0.02] cursor-pointer'
+            />
             <label htmlFor='date' className='cursor-pointer '><TbCalendarStats className=''/></label>
           </p>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>

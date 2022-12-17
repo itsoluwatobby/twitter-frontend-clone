@@ -1,334 +1,151 @@
-// import React, { useContext, useEffect, useRef, useState } from 'react';
-// import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-// //import { Link, useNavigate } from 'react-router-dom';
-// import styled from 'styled-components';
-// import { FaTwitter } from 'react-icons/fa'
-// //import { authUsers } from '../../api/axiosFetch';
-// //import Spinner from '../assets/Spinner';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+//import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { FaTwitter } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
+//import { authUsers } from '../../api/axiosFetch';
+//import Spinner from '../assets/Spinner';
 
-// const Login = () => {
-//    const [show, setShow] = useState(false);
-//    const inputRef = useRef();
-//   // const navigate = useNavigate();
-//    const [error, setError] = useState(''); 
-//    const [loading, setLoading] = useState(false);
-//    const [email, setEmail] = useState('');
-//    const [password, setPassword] = useState('');
+const Login = () => {
+   const [show, setShow] = useState(false);
+   const inputRef = useRef();
+  // const navigate = useNavigate();
+   const [error, setError] = useState(''); 
+   const [loading, setLoading] = useState(false);
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
 
-//    useEffect(() => {
-//       inputRef.current.focus()
-//    }, [])
+   useEffect(() => {
+      inputRef.current.focus()
+   }, [])
 
-//    const handleLogin = async(e) => {
-//       e.preventDefault()
-//       setLoading(true)
-//       try{ 
-//          // const response = await authUsers.post('/login', 
-//          //    {email, password},
-//          //    {
-//          //       headers: {
-//          //       'Content-Type': 'application/json'
-//          //       },
-//          //       withCredentials: true
-//          //    }
-//          // )
-//          JSON.stringify(localStorage.setItem('isLoggedIn', true))
-//          //navigate('/')
-//          setEmail('')
-//          setPassword('')
-//       }
-//       catch(error){
-//          setLoading(false)
-//          !error.response && setError('No Server Response')
-//          error.response?.status === 403 && setError('Bad Credentials')
-//          error.response?.status === 400 && setError('Invalid Input')
-//       }
-//       finally{
-//          setLoading(false)
-//       }
-//       await setTimeout(() => {
-//          setError(false)
-//       }, 2000);
-//    }
+   const handleLogin = async(e) => {
+      e.preventDefault()
+      setLoading(true)
+      try{ 
+         // const response = await authUsers.post('/login', 
+         //    {email, password},
+         //    {
+         //       headers: {
+         //       'Content-Type': 'application/json'
+         //       },
+         //       withCredentials: true
+         //    }
+         // )
+         JSON.stringify(localStorage.setItem('isLoggedIn', true))
+         //navigate('/')
+         setEmail('')
+         setPassword('')
+      }
+      catch(error){
+         setLoading(false)
+         !error.response && setError('No Server Response')
+         error.response?.status === 403 && setError('Bad Credentials')
+         error.response?.status === 400 && setError('Invalid Input')
+      }
+      finally{
+         setLoading(false)
+      }
+      await setTimeout(() => {
+         setError(false)
+      }, 2000);
+   }
 
-//    const canSaveLogIn = Boolean(email) && Boolean(password)
+   const canSaveLogIn = Boolean(email) && Boolean(password)
 
-//    let errorContent = ( 
-//       <div style={errorStyle}>
-//          <p>
-//             {error}
-//          </p>
-//       </div>     
-//    )
+   let errorContent = ( 
+      <div className='flex w-[72%] items-center justify-center bg-gray-400 rounded-[10px] text-2xl text-red-500 p-4 absolute top-10 right-7 z-20 whitespace-nowrap'>
+         <p>
+            {error}
+         </p>
+      </div>     
+   )
 
-//    let loginContent = (
-//     <Container>
-//       <div className="loginWrapper">
-//          <div className="loginLeft">
-//             <h3 className="loginLogo">Oluwatobby 
-//             <FaTwitter className='twitter'/></h3>
-//             <span className="loginDesc">Connect with friends and tweet across the globe. Connecting made easy</span>
-//          </div>
-//          <form onSubmit={handleLogin} className="loginRight">
-//             <div className="loginBox">
-//             <label htmlFor="email">Email:</label>
-//                {error && errorContent}
-//                <input 
-//                   type="email" 
-//                   ref={inputRef}
-//                   placeholder='johnDoe@mail.co'
-//                   id='email'
-//                   autoComplete='off'
-//                   required
-//                   value= {email}
-//                   className="loginInput" 
-//                   onChange={e => setEmail(e.target.value)}   
-//                />
-//                <label htmlFor="password">Password:</label>
-//                <div className="pass">
-//                   <input 
-//                      type={show ? "text" : "password"} 
-//                      placeholder='Password' 
-//                      id='Password' 
-//                      value= {password}
-//                      required
-//                      autoComplete='off'
-//                      className="loginInput" 
-//                      onChange={e => setPassword(e.target.value)}   
-//                   />
-//                   {show ? 
-//                      <AiFillEyeInvisible 
-//                         onClick={
-//                            () => setShow(prev => !prev)}
-//                            className='eyePass'
-//                      /> : 
-//                      <AiFillEye 
-//                         onClick={
-//                            () => setShow(prev => !prev)}
-//                            className='eyePass'
-//                      />
-//                   }
-//                </div>
-//                <button 
-//                   type="submit" 
-//                   className={!canSaveLogIn ? 'none' : 'loginButton'} 
-//                      disabled={!canSaveLogIn}
-//                      >Sign in</button>
-//                      {/* <Link className="loginForgot" to='/forgotPassword'> */}
-//                         <span>Forgot Password?</span>
-//                      {/* </Link> */}
-//                <button 
-//                   type='button' 
-//                   className="loginRegisterButton"
-//                   >
-//                      {/* <Link className='links' to='/register'> */}
-//                         Create a New Account
-//                         {/* </Link> */}
-//                </button>
-//             </div>
-//          </form>
-//       </div>
-//     </Container>
-//   );
+   let loginContent = (
+    <main className='container h-screen bg-blue-50 flex items-center justify-center midscreen:flex-col midscreen:-mt-10'>
+      <div className="w-3/4 h-3/4 flex gap-3 midscreen:flex-col midscreen:gap-2">
+         <div className="flex flex-none w-3/5 midscreen:w-full flex-col justify-center gap-2">
+            <h3 className="font-[800] text-5xl text-blue-500 flex items-center gap-4">Oluwatobby 
+              <div className='shadow-sm rounded-3xl text-6xl p-2 bg-blue-100'>
+                <FaTwitter className=''/>
+              </div>
+            </h3>
+            <span className="mt-2 text-2xl capitalize">Connect with friends and tweet across the globe. Connecting made easy</span>
+         </div>
+         <form onSubmit={handleLogin} className="flex flex-col justify-center relative flex-auto">
+            <div className="p-5 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-3.5">
+              <div className='w-full flex flex-col'>
+                <label
+                className='flex items-center gap-1 font-semibold mb-0'
+                htmlFor="email">Email:</label>
+                  {error && errorContent}
+                  <input 
+                      type="email" 
+                      ref={inputRef}
+                      placeholder='johnDoe@mail.co'
+                      id='email'
+                      autoComplete='off'
+                      required
+                      value= {email}
+                      className="bg-blue-50 h-[45px] rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
+                      onChange={e => setEmail(e.target.value)}   
+                  />
+              </div>
+              <div className='w-full flex flex-col'>
+                <label
+                  className='flex items-center gap-1 font-semibold mb-0'
+                  htmlFor="password">Password:</label>
+                <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                    <input 
+                      type={show ? "text" : "password"} 
+                      placeholder='Password' 
+                      id='Password' 
+                      value= {password}
+                      required
+                      autoComplete='off'
+                      className="bg-blue-50 h-full flex-auto border-none  focus:outline-none text-lg pl-2 object-cover" 
+                      onChange={e => setPassword(e.target.value)}   
+                    />
+                    {show ? 
+                      <AiFillEyeInvisible 
+                          onClick={
+                            () => setShow(prev => !prev)}
+                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                      /> : 
+                      <AiFillEye 
+                          onClick={
+                            () => setShow(prev => !prev)}
+                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                      />
+                    }
+                </div>
+               </div>
+               <button 
+                  type="submit" 
+                  className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSaveLogIn && 'bg-gray-400'}`} 
+                     disabled={!canSaveLogIn}
+                     >Sign in
+                </button>
+                     <Link className={`text-left text-blue-500 cursor-pointer no-underline font-medium transition-all hover:opacity-75`} to='/forgot_password'> 
+                        <span>Forgot Password?</span>
+                     </Link>
+               <button 
+                  type='button' 
+                  className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"
+                  >
+                     <Link className='text-white' to='/register'>
+                        Create a New Account
+                        </Link>
+               </button>
+            </div>
+         </form>
+      </div>
+    </main>
+  );
 
-//   return loading ? <Spinner /> : loginContent
-// }
+  return loading ? <Spinner /> : loginContent
+}
 
-// export default Login;
+export default Login;
 
-// const Container = styled.div`
-//    width: 100%;
-//    height: 100vh;
-//    background-color: #f0f2f5;
-//    display: flex;
-//    align-items: flex-start;
-//    justify-content: center;
-
-//    label{
-//       display: flex;
-//       align-items: center;
-//       gap: 0.2rem;
-//       font-weight: 600;
-//       margin-bottom: 0;
-//    }
-
-//    .loginWrapper{
-//       width: 70%;
-//       height: 70%;
-//       display: flex;
-//       gap: 2rem;
-
-//       .loginLeft, 
-//       .loginRight{
-//          flex: 1;
-//          display: flex;
-//          flex-direction: column;
-//          justify-content: center;
-//       }
-
-//       .loginLeft{
-//          display: flex;
-//          flex-direction: column;
-//          gap: 0.2rem;
-
-//          .loginLogo{
-//             font-size: 50px;
-//             font-weight: 800;
-//             color: #1775ee;
-//             display: flex;
-//             align-items: center;
-//             gap: 1rem;
-
-//             .twitter{
-//                box-shadow: -2px 4px 16px rgba(0,0,0,0.5);
-//                border-radius: 50%;
-//                font-size: 65px;
-//             }
-//          }
-
-//          .loginDesc{
-//             margin-top: -2rem;
-//             font-size: 24px;
-//             text-transform: capitalize;
-//          }
-//       }
-
-//       .loginRight{
-//          position: relative;
-
-//          .loginBox{
-//             height: 300px;
-//             padding: 20px;
-//             background-color: #ffffff;
-//             border-radius: 10px;
-//             display: flex;
-//             flex-direction: column;
-//             box-shadow: -2px 4px 16px rgba(0,0,0,0.2);
-//             justify-content: space-between;
-
-//             .loginInput{
-//                height: 45px;
-//                border-radius: 10px;
-//                border: 1px solid gray;
-//                font-size: 18px;
-//                padding-left: 10px;
-
-//                &:focus{
-//                   outline: none
-//                }
-//             }
-
-//             .pass{
-//                display: flex;
-//                align-items: center;
-//                border-radius: 10px;
-//                border: 1px solid gray;
-//                position: relative;
-
-//                .eyePass{
-//                   position: absolute;
-//                   right: 5px;
-//                   font-size: 28px;
-//                   cursor: pointer;
-//                   color: rgba(0,0,0,0.8);
-//                }
-
-//                .loginInput{
-//                   border: none;
-//                   border-radius: 10px;
-//                   flex: 2;
-//                   box-sizing: object-fit;
-//                }
-//             }
-
-//             .loginButton{
-//                height: 50px;
-//                border-radius: 10px;
-//                border: none;
-//                background-color: #1775ee;
-//                color: white;
-//                font-size: 20px;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-
-//                &:hover{
-//                   filter: brightness(0.7);
-//                   color: white;
-//                }
-
-//                &:active{
-//                   filter: brightness(1);
-//                }
-//             }
-
-//             .loginForgot{
-//                text-align: center;
-//                color: #1775ee;
-//                cursor: pointer;
-//                text-decoration: none;
-//                font-weight: 500;
-//                display: inline;
-//                transition: opacity 0.24s ease-in;
-
-//                &:hover{
-//                   opacity: 0.8;
-//                }
-//             }
-
-//             .loginRegisterButton{
-//                padding: 7px 10px;
-//                width: 70%;
-//                margin: 0 auto;
-//                border-radius: 10px;
-//                border: none;
-//                background-color: #42b72a;
-//                color: white;
-//                font-size: 20px;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-
-//                &:hover{
-//                   filter: brightness(0.7);
-//                   color: white;
-//                }
-
-//                &:active{
-//                   filter: brightness(1);
-//                }
-
-//                .links{
-//                   color: white;
-//                   text-decoration: none;
-//                }
-//             }
-
-//             .none{
-//                height: 50px;
-//                border-radius: 10px;
-//                border: none;
-//                background-color: lightgray;
-//                color: white;
-//                font-size: 20px;
-//                font-weight: 500;
-//                cursor: pointer;
-//                transition: all 0.25s ease-in-out;
-//             }
-//          }
-//       }
-
-//       @media (max-width: 768px){
-//          flex-direction: column;
-//          gap: 0.5rem;
-//       }
-//    }
-
-//    @media (max-width: 768px){
-//       align-items: flex-start;
-//       margin-top: -2rem;
-//    }
-// `
-// const errorStyle={
-//    display: 'flex', width: '72%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightgray', borderRadius: '10px', padding: '18px', color: 'red', fontSize: '24px', right: '28px', top: '40px', zIndex: '5', position: 'absolute', whiteSpace: 'nowrap'
-// }
