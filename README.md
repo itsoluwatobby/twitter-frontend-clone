@@ -37,7 +37,7 @@ using npm create vite@latest
 * [-] Role and token based authentication
 * [-] following and unfollowing a user
 * [-] Granting of roles to users by only admin
-* [-] Deletion of posts/users by only admin
+* [-] Deletion of tweets/users by only admin
 * [-] Deleting comments and responses by only the post author
 * [-] Locking and Unlocking of users account by admin by only admin
 * [-] Users can update their info
