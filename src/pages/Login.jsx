@@ -123,7 +123,7 @@ const Login = () => {
                </div>
                <button 
                   type="submit" 
-                  className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSaveLogIn && 'bg-gray-400'}`} 
+                  className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSaveLogIn ? 'bg-gray-400' : 'bg-blue-500'}`} 
                      disabled={!canSaveLogIn}
                      >Sign in
                 </button>

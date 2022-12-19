@@ -28,9 +28,11 @@ function App() {
             <Route index element={<Home />}/>
 
             <Route path='/tweet' element={<ProtectedRoute />}>
+
               <Route path='explore' element={<Explore />}/>
               <Route path='tweetPage' element={<TweetPage />}/>
               <Route path='profile' element={<Profile />}/>
+              
             </Route>
 
           </Route>

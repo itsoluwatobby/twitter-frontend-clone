@@ -61,7 +61,7 @@ const ForgetPassword = () => {
                </div>
                <button 
                   type="submit" 
-                  className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSubmit && 'bg-gray-400'}`}
+                  className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSubmit ? 'bg-gray-400' : 'bg-blue-500'}`}
                      disabled={!canSubmit}
                      >Reset Password</button>
                {sentLink && <span className="text-center text-blue-700 capitalize">Reset Password Link Sent To Your Email</span>}

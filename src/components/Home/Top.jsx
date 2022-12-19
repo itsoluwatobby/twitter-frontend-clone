@@ -165,7 +165,7 @@ export const Top = () => {
               id='date'
               className='w-[28px] absolute top-[2px] focus:outline-none opacity-[0.02] cursor-pointer'
             />
-            <label htmlFor='date' className='cursor-pointer '><TbCalendarStats className=''/></label>
+            <label htmlFor='date' className='cursor-pointer'><TbCalendarStats className='cursor-pointer'/></label>
           </p>
           <p className='cursor-pointer hover:bg-slate-200 p-[6px] hover:rounded-full'>
             <VscLocation onClick={getLocation}/>

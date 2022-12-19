@@ -52,6 +52,8 @@ const Register = () => {
       setMatch(match)
    }, [password, confirmPassword])
 
+   const canSave = Object.values(register).every(Boolean)
+
    const handleRegister = async(e) => {
       e.preventDefault()
       setLoading(true)
@@ -79,8 +81,6 @@ const Register = () => {
       }
    }
 
-   const canSave = Object.values(register).every(Boolean)
-
    let successContent = ( 
       <div className='flex w-[70%] items-center justify-center bg-cyan-400 rounded-[10px] p-5 text-green-500 text-2xl right-7 top-10 z-20 absolute'>
          <p>
@@ -107,26 +107,26 @@ const Register = () => {
             </h3>
             <span className="mt-2 text-2xl capitalize">Connect with friends and the world around you on Oluwatobby</span>
          </div>
-        <form onSubmit={handleRegister} 
+          <form onSubmit={handleRegister} 
           className="flex flex-col justify-center relative flex-auto shadow-2xl" onClick={() => setError(false)}>
-          <div className="p-5 bg-white rounded-[10px] flex flex-col shadow-lg gap-2.5"> 
-            <div className='w-full flex flex-col'> 
-              <label className='flex items-center gap-1 font-semibold mb-0' htmlFor='username'>
-                  Username: {!username ? '' : validUsername ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/>
-                  }
-              </label>
-              <input 
-                  type="text" 
-                  id="username" 
-                  name="username"
-                  required
-                  autoComplete='off'
-                  minLength={3}
-                  maxLength={25}
-                  placeholder='Username' 
-                  className="bg-blue-50 h-[45px] rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
-                  onChange={handleChange}   
-              />
+            <div className="p-4 bg-white rounded-[10px] flex flex-col shadow-lg gap-2.5"> 
+              <div className='w-full flex flex-col'> 
+                <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='username'>
+                    Username: {!username ? '' : validUsername ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/>
+                    }
+                </label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username"
+                    required
+                    autoComplete='off'
+                    minLength={3}
+                    maxLength={25}
+                    placeholder='Username' 
+                    className="bg-blue-50 h-10 rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
+                    onChange={handleChange}   
+                />
               </div>
               {!validUsername && username &&
                 <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
@@ -137,21 +137,21 @@ const Register = () => {
                 </p>
               }
               <div className='w-full flex flex-col'>
-              <label className='flex items-center gap-1 font-semibold mb-0' htmlFor='email'>
-                  Email: {!email ? '' : validEmail ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
-              </label>
-              <input 
-                  type="email" 
-                  placeholder='johnDoe@mail.co'
-                  name="email"
-                  id="email"
-                  minLength={5} 
-                  maxLength={25} 
-                  required
-                  autoComplete='off'
-                  className="bg-blue-50 h-[45px] rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
-                  onChange={handleChange}   
-              />
+                <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='email'>
+                    Email: {!email ? '' : validEmail ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
+                </label>
+                <input 
+                    type="email" 
+                    placeholder='johnDoe@mail.co'
+                    name="email"
+                    id="email"
+                    minLength={5} 
+                    maxLength={25} 
+                    required
+                    autoComplete='off'
+                    className="bg-blue-50 h-10 rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
+                    onChange={handleChange}   
+                />
               </div>
               {!validEmail && email &&
                 <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
@@ -164,10 +164,10 @@ const Register = () => {
               {success && successContent}
               {error && errorContent}
               <div className='w-full flex flex-col'>
-              <label className='flex items-center gap-1 font-semibold mb-0' htmlFor='password'>
-                  Password: {!password ? '' : validUsername && validPassword ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
-              </label>
-              <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='password'>
+                    Password: {!password ? '' : validUsername && validPassword ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
+                </label>
+                <div className="flex items-center rounded-[10px] border border-gray-300 h-10 relative">
                   <input 
                     type={show ? "text" : "password"} 
                     placeholder='Password' 
@@ -182,15 +182,15 @@ const Register = () => {
                     <AiFillEyeInvisible 
                         onClick={
                           () => setShow(prev => !prev)}
-                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                          className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                     /> : 
                     <AiFillEye 
                         onClick={
                           () => setShow(prev => !prev)}
-                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
-                    />
+                        className='absolute right-1 text-2xl cursor-pointer text-gray-800'
+                  />
                   }
-              </div>
+                </div>
               </div>
               {!validPassword && password && validUsername &&
                 <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
@@ -201,8 +201,8 @@ const Register = () => {
                 </p>
               }
               <div className='w-full flex flex-col'>
-              <label className='flex items-center gap-1 font-semibold mb-0'>Confirm Password:</label> 
-              <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                <label className='flex items-center gap-1 font-semibold mb-0 text-sm'>Confirm Password:</label> 
+                <div className="flex items-center rounded-[10px] border border-gray-300 h-10 relative">
                   <input 
                     type={show ? "text" : "password"} 
                     placeholder='Confirm Password' 
@@ -216,13 +216,13 @@ const Register = () => {
                     <AiFillEyeInvisible 
                         onClick={
                           () => setShow(prev => !prev)}
-                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                          className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                     /> : 
                     <AiFillEye 
                         onClick={
-                          () => setShow(prev => !prev)}
-                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
-                    />
+                        () => setShow(prev => !prev)}
+                        className='absolute right-1 text-2xl cursor-pointer text-gray-800'
+                  />
                   }
               </div>
             </div>
@@ -243,11 +243,11 @@ const Register = () => {
               </p>
             }
               <button type="submit" 
-                  className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave && 'bg-gray-400'}`} 
-                  disabled={!canSave && match && validPassword && validUsername}
+                  className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave ? 'bg-gray-400' : 'bg-blue-500'}`} 
+                  disabled={!canSave && !match && !validPassword && !validUsername}
                   >Sign Up</button>
             
-            <Link className='text-white' to='/login'>   
+            <Link className='text-white text-center' to='/login'>   
               <button 
                   type='button' 
                   className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"

@@ -5,7 +5,7 @@ import { TRENDS } from '../../../data/data'
 
 export const RightSide = () => {
   return (
-    <aside className='midscreen:hidden relative flex-none w-[31%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
+    <aside className='midscreen:hidden relative flex-none w-[30%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
       <div className='w-[97%] flex flex-col gap-4'>
         <div className='flex p-2.5 rounded-2xl items-center gap-2 bg-gray-200 w-full'>
           <BiSearch className='text-[22px]'/>

@@ -15,12 +15,18 @@ const NewPassword = () => {
    const [loading, setLoading] = useState(false);
    const [validPassword, setValidPassword] = useState(false);
    const [success, setSuccess] = useState(false);
+   const [match, setMatch] = useState(false);
    const [password, setPassword] = useState('');
-
+   const [confirmPassword, setConfirmPassword] = useState('');
+   
    useEffect(() => {
-      const validPass = PASSWORD_REGEX.test(password);
-      setValidPassword(validPass)
-   }, [password])
+    const validPass = PASSWORD_REGEX.test(password);
+    setValidPassword(validPass)
+    const match = password === confirmPassword;
+    setMatch(match)
+ }, [password, confirmPassword])
+
+ const canSave = [password, confirmPassword].every(Boolean)
 
    const handleRegister = async(e) => {
       e.preventDefault()
@@ -41,14 +47,13 @@ const NewPassword = () => {
          setLoading(false)
          !error.response && setError('No Server Response')
          error.response?.status === 403 && setError('Bad Credentials')
+         error.response?.status === 409 && setError('Same as old, please choose a new password')
          error.response?.status === 400 && setError('Invalid Input')
       }finally{
          setSuccess(false)
          setLoading(false)
       }
    }
-
-   const canSave = Boolean(password)
 
    let successContent = ( 
       <div className='flex w-[70%] items-center justify-center bg-cyan-400 rounded-[10px] p-5 text-green-500 text-2xl right-7 top-10 z-20 absolute'>
@@ -110,19 +115,63 @@ const NewPassword = () => {
                   </div>
                 </div>
                 {!validPassword && password &&
-                    <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
+                  <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
+                    <FaInfoCircle />
+                    <span className='pl-2.5'>
+                        must contain at least a letter, a number, a symbol, a minimum of 5 and maximum of 25 characters. Avoid using <span className='uppercase text-xs text-red-500'> quotes</span>
+                    </span>
+                  </p>
+                }
+                <div className='w-full flex flex-col'>
+                  <label className='flex items-center gap-1 font-semibold mb-0'
+                  htmlFor='confirmPassword'
+                  >Confirm Password:</label> 
+                  <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                    <input 
+                      type={show ? "text" : "password"} 
+                      placeholder='Confirm Password' 
+                      id='confirmPassword'
+                      value={confirmPassword} 
+                      required
+                      autoComplete='off'
+                      className="bg-blue-50 h-full flex-auto border-none  focus:outline-none text-lg pl-2 object-cover" 
+                      onChange={e => setConfirmPassword(e.target.value)}   
+                    />
+                    {show ? 
+                      <AiFillEyeInvisible 
+                          onClick={
+                            () => setShow(prev => !prev)}
+                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                      /> : 
+                      <AiFillEye 
+                          onClick={
+                          () => setShow(prev => !prev)}
+                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                    />
+                    }
+                  </div>
+                </div>
+                {validPassword && !match && confirmPassword &&
+                  <p className='bg-black text-white flex rounded-[10px] items-center text-sm p-2.5 -mt-[9px] -mb-[5px]'>
                       <FaInfoCircle />
                       <span className='pl-2.5'>
-                          must contain at least a letter, a number, a symbol, a minimum of 5 and maximum of 25 characters. Avoid using <span className='uppercase text-xs text-red-500'> quotes</span>
+                        password must be a match.
                       </span>
-                    </p>
+                  </p>
                 }
-              
-                    <button type="submit" 
-                      className={`h-12 rounded-lg border-none bg-blue-500 text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave && 'bg-gray-400'}`}
-                      disabled={!canSave && validPassword}
-                      >reset password</button>
-                <Link className='text-white' to='/login'>   
+                {!password && confirmPassword &&
+                  <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
+                      <FaInfoCircle />
+                      <span className='pl-2.5'>
+                        a valid password input is required first.
+                      </span>
+                  </p>
+                }
+                  <button type="submit" 
+                    className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave ? 'bg-gray-400' : 'bg-blue-500'}`}
+                    disabled={!canSave && match && validPassword}
+                    >reset password</button>
+                    <Link className='text-white text-center' to='/login'>   
                     <button 
                       type='button' 
                       className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"

@@ -46,7 +46,7 @@ export const Tweets = ({post, centerTweet, postResponse}) => {
                 className='text-blue-600 cursor-pointer hover:underline'>@yabaleftonline</span>
             </p>
           }
-          <Link to='/tweetPage'><p className='w-full'>{centerTweet ? postResponse.tweet : post?.tweet}</p></Link>
+          <Link to='/tweet/tweetPage'><p className='w-full'>{centerTweet ? postResponse.tweet : post?.tweet}</p></Link>
         </div>
       </div>
       {/* mid for picture ....optional */}
