@@ -1,28 +1,37 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
+function providesList(resultsId, tagTypes){
+  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+                      { type: tagTypes, id: 'LIST' }]
+                     : [{ type: tagTypes, id: 'LIST' }]
+}
+
 export const tweetApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     //fetching single post
     fetchSinglePost: builder.query({
       query: (postId) => `/getPost/${postId}`,
-      providesTags: ['POSTS']
+      providesTags: result => providesList(result, 'POSTS') 
     }),
+
     //fetch all posts
     fetchPosts: builder.query({
       query: (userId) => `/getAllPosts/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },
-      providesTags: ['POSTS']
+      providesTags: (result) => providesList(result, 'POSTS')
     }),
+
     //fetch all posts by a user
     fetchPostsByUser: builder.query({
       query: (userId) => `/getUserPosts/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },
-      providesTags: ['POSTS']
+      providesTags: (result) => providesList(result, 'POSTS')
     }),
+
     //create a new post fro user
     createPosts: builder.mutation({
       query: (newPost) => ({
@@ -30,8 +39,9 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: newPost
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
+
     //update post by user
     updatePost: builder.mutation({
       query: ({postId, postUpdate}) => ({
@@ -39,8 +49,9 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: postUpdate
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
+
     //delete user post by user
     deletePost: builder.mutation({
       query: ({userId, postId}) => ({
@@ -48,8 +59,9 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
+
     //delete user post by admin
     deletePostByAdmin: builder.mutation({
       query: ({adminId, postId}) => ({
@@ -57,8 +69,9 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
+
     //delete user posts by admin
     deleteUserPostsByAdmin: builder.mutation({
       query: ({adminId, userId}) => ({
@@ -66,7 +79,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
   })
 })

@@ -1,11 +1,17 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
+function providesList(resultsId, tagTypes){
+  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+                      { type: tagTypes, id: 'LIST' }]
+                     : [{ type: tagTypes, id: 'LIST' }]
+}
+
 export const commentApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     //fetching single comment
     getSingleComment: builder.query({
       query: ({commentId, postId}) => `/getComment/${commentId}/${postId}`,
-      providesTags: ['COMMENTS']
+      providesTags: (result) => providesList(result, 'COMMENTS')
     }),
 
     //fetch all user comments
@@ -14,7 +20,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
-      providesTags: ['COMMENTS']
+      providesTags: (result) => providesList(result, 'COMMENTS')
     }),
 
     //fetch all user comments by admin
@@ -23,7 +29,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
-      providesTags: ['COMMENTS']
+      providesTags: (result) => providesList(result, 'COMMENTS')
     }),
 
     //fetch all posts by a user
@@ -32,7 +38,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
-      providesTags: ['COMMENTS']
+      providesTags: (result) => providesList(result, 'COMMENTS')
     }),
 
     //create a new comment from user
@@ -42,7 +48,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: newComment
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //update comment by user
@@ -52,7 +58,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: commentUpdate
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //delete user comment by user
@@ -62,7 +68,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //delete user comment by post owner
@@ -72,7 +78,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //delete user comment by admin
@@ -82,7 +88,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //delete user posts by admin
@@ -92,7 +98,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['COMMENTS']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
   })
 })

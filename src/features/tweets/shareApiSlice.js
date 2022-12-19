@@ -1,5 +1,11 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
+function providesList(resultsId, tagTypes){
+  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+                      { type: tagTypes, id: 'LIST' }]
+                     : [{ type: tagTypes, id: 'LIST' }]
+}
+
 export const shareApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     sharePost: builder.mutation({
@@ -8,7 +14,7 @@ export const shareApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: ''
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: ['SHARED']
     }),
 
     unSharePost: builder.mutation({
@@ -17,24 +23,24 @@ export const shareApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['POSTS']
+      invalidatesTags: ['SHARED']
     }),
 
     getSharedPost: builder.query({
       query: ({userId, sharedPostId}) => `/getSharedPost/${userId}/${sharedPostId}`,
-      providesTags: [POSTS]
+      providesTags: (result) => providesList(result, 'SHARED')
     }),
 
     getUserSharedPost: builder.mutation({
       query: (sharerId) => `/getUserSharedPost/${sharerId}`,
       transformResponse: res => res?.data.sort((a, b) => b?.sharedDate.localeCompare(a?.sharedDate)),
-      providesTags: [POSTS]
+      providesTags: (result) => providesList(result, 'SHARED')
     }),
 
     getAllSharedPost: builder.mutation({
       query: (ownerId) => `/getAllSharedPost/${ownerId}`,
       transformResponse: res => res?.data.sort((a, b) => b?.sharedDate.localeCompare(a?.sharedDate)),
-      providesTags: [POSTS]
+      providesTags: (result) => providesList(result, 'SHARED')
     })
   })
 })

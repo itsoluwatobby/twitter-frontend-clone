@@ -8,7 +8,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['POSTLIKE']
+      invalidatesTags: [{ type: 'POSTS', id: 'LIST' }]
     }),
     
     likeAndUnlikeComments: builder.mutation({
@@ -17,7 +17,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['COMMENTLIKE']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     disLikeAndUnDisLikeComments: builder.mutation({
@@ -26,7 +26,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['COMMENTLIKE']
+      invalidatesTags: [{ type: 'COMMENTS', id: 'LIST' }]
     }),
     
     likeAndUnlikeResponse: builder.mutation({
@@ -35,7 +35,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['RESPONSELIKE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
 
     dislikeAndUnDislikeResponse: builder.mutation({
@@ -44,7 +44,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['RESPONSELIKE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
 
   })

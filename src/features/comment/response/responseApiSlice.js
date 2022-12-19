@@ -1,11 +1,17 @@
 import { apiSlice } from "../../../app/api/apiSlice";
 
+function providesList(resultsId, tagTypes){
+  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+                      { type: tagTypes, id: 'LIST' }]
+                     : [{ type: tagTypes, id: 'LIST' }]
+}
+
 export const responseApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     //fetching single response
     getSingleResponse: builder.query({
       query: ({commentId, responseId}) => `/getResponse/${commentId}/${responseId}`,
-      providesTags: ['RESPONSE']
+      providesTags: (result) => providesList(result, 'RESPONSE')
     }),
 
     //fetch all user response
@@ -14,7 +20,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.responseDate.localeCompare(a?.responseDate))
       },
-      providesTags: ['RESPONSE']
+      providesTags: (result) => providesList(result, 'RESPONSE')
     }),
 
     //fetch all response in a comment
@@ -23,7 +29,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.responseDate.localeCompare(a?.responseDate))
       },
-      providesTags: ['RESPONSE']
+      providesTags: (result) => providesList(result, 'RESPONSE')
     }),
 
     //create a new response from user
@@ -33,7 +39,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: newResponse
       }),
-      invalidatesTags: ['RESPONSE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
 
     //update response by user
@@ -43,7 +49,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: responseUpdate
       }),
-      invalidatesTags: ['RESPONSE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
 
     //delete user response by user
@@ -53,7 +59,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['RESPONSE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
 
     //delete user response by post owner
@@ -63,7 +69,7 @@ export const responseApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['RESPONSE']
+      invalidatesTags: [{ type: 'RESPONSE', id: 'LIST' }]
     }),
   })
 })

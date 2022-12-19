@@ -1,24 +1,30 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
+function providesList(resultsId, tagTypes){
+  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+                      { type: tagTypes, id: 'LIST' }]
+                     : [{ type: tagTypes, id: 'LIST' }]
+}
+
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
 
     //get single user
     getUser: builder.query({
       query: (userId) => `/getUser/${userId}`,
-      providesTags: ['USERS']
+      providesTags: (result) => providesList(result, 'USERS')
     }),
 
     //fetch all users
     getAllUsers: builder.query({
       query: () => '/getUsers',
-      providesTags: ['USERS']
+      providesTags: (result) => providesList(result, 'USERS')
     }),
 
     //fetch user friends
     fetchUserFriends: builder.query({
       query: (userId) => `/userFriends/${userId}`,
-      providesTags: ['USERS']
+      providesTags: (result) => providesList(result, 'USERS')
     }),
     
     //follow a user
@@ -28,7 +34,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }],
     }),
 
     //unfollow a user
@@ -38,7 +44,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //update user info
@@ -48,7 +54,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: userInfo
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //lock and unlock user account by admin
@@ -58,7 +64,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //toggle editor role
@@ -68,7 +74,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //toggle admin role
@@ -78,7 +84,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //remove user hubby
@@ -88,7 +94,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
     
     //delete my account
@@ -98,7 +104,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //delete accounts by admin
@@ -108,7 +114,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['USERS']
+      invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
   })
 })
