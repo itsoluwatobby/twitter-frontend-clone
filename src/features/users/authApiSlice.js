@@ -3,9 +3,9 @@ import {apiSlice} from '../../app/api/apiSlice'
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
 
-    register: builder.mutation({
+    registerUser: builder.mutation({
       query: (credentials) => ({
-        url: '/register',
+        url: '/users/register',
         method: 'POST',
         body: {...credentials}
       })
@@ -13,7 +13,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
     login: builder.mutation({
       query: (credentials) => ({
-        url: '/login',
+        url: '/users/login',
         method: 'POST',
         body: {...credentials}
       })
@@ -21,27 +21,27 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
     resetPassword: builder.mutation({
       query: (email) => ({
-        url: '/reset_password',
+        url: '/users/reset_password',
         method: 'POST',
         body: email
       })
     }),
 
     sendResetPassword: builder.mutation({
-      query: ({email, resetPassword}) => ({
-        url: `/password_confirmation?email=${email}`,
-        method: 'PATCH',
-        body: resetPassword
+      query: (passwordUpdate) => ({
+        url: `/users/password_confirmation`,
+        method: 'PUT',
+        body: passwordUpdate
       })
     }),
 
     logout: builder.query({
-      query: () => '/logout'
+      query: () => '/users/logout'
     }),
   })
 })
 
 export const { 
-  useLoginMutation, useRegisterMutation, useResetPasswordMutation,
+  useLoginMutation, useRegisterUserMutation, useResetPasswordMutation,
   useSendResetPasswordMutation, useLogoutQuery
 } = authApiSlice

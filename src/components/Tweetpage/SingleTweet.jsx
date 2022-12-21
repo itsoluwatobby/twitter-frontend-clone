@@ -16,7 +16,10 @@ export const SingleTweet = () => {
       <div className='flex flex-col gap-4 pl-4 pr-4 relative'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-4'>
-            <img src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-16 h-16 rounded-full object-cover cursor-pointer'/>
+            {
+              <img src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-16 h-16 rounded-full object-cover cursor-pointer'/>
+              // : <CgProfile className='text-2xl text-gray'/>
+            }
             <div className='flex flex-col cursor-pointer'>
               <p className='font-[600] flex items-center gap-1'>
                 <span 

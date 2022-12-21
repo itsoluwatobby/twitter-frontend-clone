@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-//import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { FaTwitter } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
-//import { authUsers } from '../../api/axiosFetch';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaTwitter } from 'react-icons/fa';
+import { useLoginMutation } from '../features/users/authApiSlice';
 //import Spinner from '../assets/Spinner';
 
 const Login = () => {
    const [show, setShow] = useState(false);
    const inputRef = useRef();
   // const navigate = useNavigate();
-   const [error, setError] = useState(''); 
+   const [errorMessage, setErrorMessage] = useState(null); 
    const [loading, setLoading] = useState(false);
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const [login, {isLoading, isError, isSuccess}] = useLoginMutation();
 
    useEffect(() => {
       inputRef.current.focus()
@@ -24,40 +23,29 @@ const Login = () => {
       e.preventDefault()
       setLoading(true)
       try{ 
-         // const response = await authUsers.post('/login', 
-         //    {email, password},
-         //    {
-         //       headers: {
-         //       'Content-Type': 'application/json'
-         //       },
-         //       withCredentials: true
-         //    }
-         // )
-         JSON.stringify(localStorage.setItem('isLoggedIn', true))
+         await login({email, password}).unwrap();
+         JSON.stringify(localStorage.setItem('currentUser', true))
          //navigate('/')
          setEmail('')
          setPassword('')
       }
-      catch(error){
-         setLoading(false)
-         !error.response && setError('No Server Response')
-         error.response?.status === 403 && setError('Bad Credentials')
-         error.response?.status === 400 && setError('Invalid Input')
+      catch(isError){
+         let message;
+         isError.status === 400 ? message = isError?.data : 
+         isError.status === 401 ? message = isError?.data : 
+         isError.status === 403 ? message = isError?.data : 
+         isError.status === 409 ? message = isError?.data : 
+         message ='no server response'
+         setErrorMessage(message)
       }
-      finally{
-         setLoading(false)
-      }
-      await setTimeout(() => {
-         setError(false)
-      }, 2000);
    }
 
    const canSaveLogIn = Boolean(email) && Boolean(password)
 
    let errorContent = ( 
-      <div className='flex w-[72%] items-center justify-center bg-gray-400 rounded-[10px] text-2xl text-red-500 p-4 absolute top-10 right-7 z-20 whitespace-nowrap'>
+      <div className='flex w-[70%] items-center justify-center bg-gray-400 rounded-[10px] text-2xl text-red-500 p-2 absolute top-12 right-7 z-20 whitespace-nowrap'>
          <p>
-            {error}
+            {errorMessage}
          </p>
       </div>     
    )
@@ -67,19 +55,19 @@ const Login = () => {
       <div className="w-3/4 h-3/4 flex gap-3 midscreen:flex-col midscreen:gap-2">
          <div className="flex flex-none w-3/5 midscreen:w-full flex-col justify-center gap-2">
             <h3 className="font-[800] text-5xl text-blue-500 flex items-center gap-4">Oluwatobby 
-              <div className='shadow-sm rounded-3xl text-6xl p-2 bg-blue-100'>
+              <div className='shadow-sm rounded-3xl text-5xl p-2 bg-blue-100'>
                 <FaTwitter className=''/>
               </div>
             </h3>
             <span className="mt-2 text-2xl capitalize">Connect with friends and tweet across the globe. Connecting made easy</span>
          </div>
          <form onSubmit={handleLogin} className="flex flex-col justify-center relative flex-auto">
-            <div className="p-5 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-3.5">
+            <div onClick={() => setErrorMessage(null)} className="p-5 pt-3 pb-3 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-2.5">
               <div className='w-full flex flex-col'>
                 <label
                 className='flex items-center gap-1 font-semibold mb-0'
                 htmlFor="email">Email:</label>
-                  {error && errorContent}
+                  {errorMessage && errorContent}
                   <input 
                       type="email" 
                       ref={inputRef}
@@ -88,7 +76,7 @@ const Login = () => {
                       autoComplete='off'
                       required
                       value= {email}
-                      className="bg-blue-50 h-[45px] rounded-[10px] border border-gray-300 focus:outline-none text-lg pl-2" 
+                      className="bg-blue-50 h-9 rounded-[10px] border border-gray-300 focus:outline-none text-base pl-2" 
                       onChange={e => setEmail(e.target.value)}   
                   />
               </div>
@@ -96,7 +84,7 @@ const Login = () => {
                 <label
                   className='flex items-center gap-1 font-semibold mb-0'
                   htmlFor="password">Password:</label>
-                <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                <div className="flex items-center rounded-[10px] border border-gray-300 h-9 relative">
                     <input 
                       type={show ? "text" : "password"} 
                       placeholder='Password' 
@@ -104,47 +92,47 @@ const Login = () => {
                       value= {password}
                       required
                       autoComplete='off'
-                      className="bg-blue-50 h-full flex-auto border-none  focus:outline-none text-lg pl-2 object-cover" 
+                      className="bg-blue-50 h-full flex-auto border-none  focus:outline-none text-base pl-2 object-cover" 
                       onChange={e => setPassword(e.target.value)}   
                     />
                     {show ? 
                       <AiFillEyeInvisible 
                           onClick={
                             () => setShow(prev => !prev)}
-                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                            className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                       /> : 
                       <AiFillEye 
                           onClick={
                             () => setShow(prev => !prev)}
-                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                            className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                       />
                     }
                 </div>
                </div>
                <button 
                   type="submit" 
-                  className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSaveLogIn ? 'bg-gray-400' : 'bg-blue-500'}`} 
+                  className={`h-10 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSaveLogIn ? 'bg-gray-400' : 'bg-blue-500'}`} 
                      disabled={!canSaveLogIn}
                      >Sign in
                 </button>
-                     <Link className={`text-left text-blue-500 cursor-pointer no-underline font-medium transition-all hover:opacity-75`} to='/forgot_password'> 
-                        <span>Forgot Password?</span>
-                     </Link>
-               <button 
-                  type='button' 
-                  className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"
+               <Link className={`w-36 text-left text-blue-500 cursor-pointer no-underline font-medium transition-all hover:opacity-75`} to='/forgot_password'> 
+                  <span>Forgot Password?</span>
+               </Link>
+               <p 
+                  className="w-full m-auto text-black text-base flex items-center gap-2 mildscreen:gap-0.5 mildscreen:flex-col"
                   >
-                     <Link className='text-white' to='/register'>
-                        Create a New Account
-                        </Link>
-               </button>
+                     Don't have an account? 
+                  <Link className='transition-all cursor-pointer text-black hover:brightness-90 hover:text-gray-700 active:brightness-100' to='/register'>   
+                     Create an Account
+                  </Link>
+               </p>
             </div>
          </form>
       </div>
     </main>
   );
 
-  return loading ? <Spinner /> : loginContent
+  return isLoading ? <h1 className='text-2xl text-center pt-10'>Signing in...</h1> : loginContent
 }
 
 export default Login;

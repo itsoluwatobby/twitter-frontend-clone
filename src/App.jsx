@@ -10,6 +10,7 @@ import { TweetLayout } from './components/TweetLayout'
 import { Profile } from './pages/Profile'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { PublicRoute } from './components/PublicRoute'
+import { Success } from './pages/Success'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='register' element={<Register />}/>
           <Route path='forgot_password' element={<ForgetPassword />}/>
           <Route path='new_password' element={<NewPassword />}/>
+          <Route path='successful_verification' element={<Success />}/>
 
           <Route element={<TweetLayout />}>
 

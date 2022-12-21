@@ -10,13 +10,13 @@ export const commentApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     //fetching single comment
     getSingleComment: builder.query({
-      query: ({commentId, postId}) => `/getComment/${commentId}/${postId}`,
+      query: ({commentId, postId}) => `/tweets/getComment/${commentId}/${postId}`,
       providesTags: (result) => providesList(result, 'COMMENTS')
     }),
 
     //fetch all user comments
     fetchUserComments: builder.query({
-      query: (userId) => `/getComments/${userId}`,
+      query: (userId) => `/tweets/getComments/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
@@ -25,7 +25,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
 
     //fetch all user comments by admin
     fetchUserCommentsByAdmin: builder.query({
-      query: ({adminId, userId}) => `/getUserComments/${adminId}/${userId}`,
+      query: ({adminId, userId}) => `/tweets/getUserComments/${adminId}/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
@@ -34,7 +34,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
 
     //fetch all posts by a user
     getCommentsInPost: builder.query({
-      query: (postId) => `/getCommentsInPost/${postId}`,
+      query: (postId) => `/tweets/getCommentsInPost/${postId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
@@ -44,7 +44,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //create a new comment from user
     createComment: builder.mutation({
       query: (newComment) => ({
-        url: '/createComment',
+        url: '/tweets/createComment',
         method: 'POST',
         body: newComment
       }),
@@ -54,7 +54,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //update comment by user
     updateComment: builder.mutation({
       query: ({commentId, commentUpdate}) => ({
-        url: `/updateComment/${commentId}`,
+        url: `/tweets/updateComment/${commentId}`,
         method: 'PUT',
         body: commentUpdate
       }),
@@ -64,7 +64,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //delete user comment by user
     deleteComment: builder.mutation({
       query: ({userId, commentId}) => ({
-        url: `/deleteComment/${userId}/${commentId}`,
+        url: `/tweets/deleteComment/${userId}/${commentId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -74,7 +74,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //delete user comment by post owner
     deleteCommentByPostOwner: builder.mutation({
       query: ({ownerId, commentId}) => ({
-        url: `/deleteCommentByPostOwner/${ownerId}/${commentId}`,
+        url: `/tweets/deleteCommentByPostOwner/${ownerId}/${commentId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -84,7 +84,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //delete user comment by admin
     deleteCommentByAdmin: builder.mutation({
       query: ({adminId, commentId}) => ({
-        url: `/adminCommentDelete/${adminId}/${commentId}`,
+        url: `/tweets/adminCommentDelete/${adminId}/${commentId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -94,7 +94,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //delete user posts by admin
     deleteUserCommentsByAdmin: builder.mutation({
       query: ({adminId, postId}) => ({
-        url: `/deleteUserComments?adminId=${adminId}&postId=${postId}`,
+        url: `/tweets/deleteUserComments?adminId=${adminId}&postId=${postId}`,
         method: 'DELETE',
         body: ''
       }),

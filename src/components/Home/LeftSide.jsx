@@ -11,7 +11,7 @@ export const LeftSide = () => {
   const {pathname} = useLocation()
 
   return (
-    <aside className='minscreen:pl-2.5 pl-12 pb-2 pr-2 bg-white max-w-[22%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
+    <aside className='minscreen:pl-1.5 pl-12 pb-2 pr-2 bg-white max-w-[22%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
       <div className='minscreen:ml-2 flex-none mb-2 rounded-full hover:bg-blue-100 cursor-pointer grid place-content-center h-[52px] w-[52px]'>
         <FaTwitter className='text-blue-500 text-3xl'/>
       </div>
@@ -33,7 +33,7 @@ export const LeftSide = () => {
         </Link>
         <div title='Notification' className='minscreen:w-[52px] minscreen:h-[52px] minscreen:hover:rounded-full minscreen:m-auto minscreen:box-border relative minscreen:grid minscreen:place-content-center flex items-center pt-3 pb-3 gap-4 cursor-pointer hover:rounded-md hover:bg-gray-200'>
            {/* display for new notification */}
-           <div className='minscreen:left-[28px] absolute w-[18px] h-[18px] bg-blue-600 rounded-full top-[8px] left-[18px] text-white grid place-content-center text-[14px] p-[2px]'>
+           <div className='minscreen:left-[28px] absolute w-[18px] h-[18px] bg-blue-600 rounded-full top-[8px] left-[16px] text-white grid place-content-center text-[14px] p-[2px]'>
             <p>0</p>
            </div>
           {pathname === '/tweet/notification' ? <BsBellFill className='text-[27px]'/> : <BsBell className='text-[27px]'/>}
@@ -69,7 +69,10 @@ export const LeftSide = () => {
         <button className='minscreen:hidden rounded-full p-3 bg-blue-500 mt-2'>Tweet</button>
       </div>
       <Link to='/tweet/profile'><div className='before minscreen:mt-12 mt-12 flex-none flex items-center gap-2 m-auto h-20 w-full p-2 pl-3 pr-3 hover:bg-gray-300 hover:rounded-full'>
-        <img src='https://images.unsplash.com/photo-1634150872480-1a193b9ee47f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/>
+        {
+          <img src='https://images.unsplash.com/photo-1634150872480-1a193b9ee47f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/> 
+          //: <CgProfile className='text-2xl text-gray'/>
+        }
         <div className='minscreen:hidden w-full flex items-center gap-4 justify-between'>
           <p className='flex flex-col cursor-pointer'>
             <span className='font-semibold'>Oluwatobiloba</span>

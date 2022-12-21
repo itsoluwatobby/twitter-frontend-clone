@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-//import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaTimes, FaCheck, FaInfoCircle, FaTwitter } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-//import { authUsers } from "../../api/axiosFetch";
+import { useSendResetPasswordMutation } from '../features/users/authApiSlice';
 
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,24}$/
 
 const NewPassword = () => {
-   //const navigate = useNavigate();
+   const navigate = useNavigate();
    const [show, setShow] = useState(false);
-   const [error, setError] = useState('');
-   const [loading, setLoading] = useState(false);
    const [validPassword, setValidPassword] = useState(false);
-   const [success, setSuccess] = useState(false);
    const [match, setMatch] = useState(false);
    const [password, setPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
+   const [errorMessage, setErrorMessage] = useState(null);
+   const [sendResetPassword, {isLoading, isError, isSuccess, reset}] = useSendResetPasswordMutation();
+   const location = useLocation();
+   const emailAd = location?.search.split('=')[1]
+   console.log(emailAd)
    
    useEffect(() => {
     const validPass = PASSWORD_REGEX.test(password);
@@ -25,71 +25,68 @@ const NewPassword = () => {
     const match = password === confirmPassword;
     setMatch(match)
  }, [password, confirmPassword])
-
+console.log(isSuccess)
  const canSave = [password, confirmPassword].every(Boolean)
 
    const handleRegister = async(e) => {
       e.preventDefault()
-      setLoading(true)
       try{
-         const pass = PASSWORD_REGEX.test(password)
-         if(pass){
-            // const response = await authUsers.post('/register', 
-            // {password})
-            setSuccess(true)
-            setPassword('')
-            navigate('/login')
-         }
-         else setError('Inputs are not valid')
+        await sendResetPassword({email : emailAd, resetPass: password}).unwrap()
+        setPassword('')
+        setConfirmPassword('')
+        //navigate('/login')
       } 
-      catch(error){
-         setSuccess(false)
-         setLoading(false)
-         !error.response && setError('No Server Response')
-         error.response?.status === 403 && setError('Bad Credentials')
-         error.response?.status === 409 && setError('Same as old, please choose a new password')
-         error.response?.status === 400 && setError('Invalid Input')
-      }finally{
-         setSuccess(false)
-         setLoading(false)
-      }
+      catch(isError){
+        let message;
+        isError.status === 400 ? message = isError?.data : 
+        isError.status === 401 ? message = isError?.data : 
+        isError.status === 403 ? message = isError?.data : 
+        isError.status === 409 ? message = isError?.data : 
+        message ='no server response'
+        setErrorMessage(message)
+     }
    }
 
    let successContent = ( 
-      <div className='flex w-[70%] items-center justify-center bg-cyan-400 rounded-[10px] p-5 text-green-500 text-2xl right-7 top-10 z-20 absolute'>
+      <div className='flex max-w-[75%] items-center justify-center bg-gray-700 rounded-[10px] p-3 capitalize text-green-500 text-lg right-7 top-10 z-20 absolute'>
          <p>
-            Registration Successful!!
+            Password reset Successful!!
          </p>
       </div>     
    )
-
+console.log(isError)
    let errorContent = ( 
-      <div className='flex w-[72%] items-center justify-center bg-gray-400 rounded-[10px] text-2xl text-red-500 p-4 absolute top-10 right-7 z-20 whitespace-nowrap'>
+      <div className='flex w-[70%] items-center justify-center bg-gray-300 rounded-[10px] text-xl text-red-500 p-2 absolute top-10 right-7 z-20 whitespace-nowrap'>
          <p>
-            {error}
+            {errorMessage}
          </p>
       </div>     
    )
 
    let mainContent = (
-      <div className="w-3/4 h-3/4 flex gap-1 midscreen:flex-col">
+      <div 
+        onClick={reset}
+        className="w-3/4 h-3/4 flex gap-1 midscreen:flex-col">
          <div className="flex flex-none w-3/5 midscreen:w-full flex-col justify-center gap-2">
             <h3 className="font-[800] text-5xl text-blue-500 flex items-center gap-4">Oluwatobby 
-              <div className='shadow-sm rounded-3xl text-6xl p-2 bg-blue-100'>
+              <div className='shadow-sm rounded-3xl text-5xl p-2 bg-blue-100'>
                 <FaTwitter className=''/>
               </div>
             </h3>
             <span className="mt-2 text-2xl capitalize">Connect with friends and the world around you on Oluwatobby</span>
          </div>
-            <form onSubmit={handleRegister} className="flex flex-col justify-center relative flex-auto" onClick={() => setError(false)}>
-               {success && successContent}
-               {error && errorContent}
-               <div className="p-5 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-3.5">
+            <form 
+              onSubmit={handleRegister} className="relative flex-auto" 
+              onClick={() => setErrorMessage(null)}>
+               {isSuccess && successContent}
+               {errorMessage && errorContent}
+               <div className="p-4 bg-white rounded-[10px] flex flex-col shadow-lg justify-between gap-3">
                <div className='w-full flex flex-col'>
+               {isLoading && <p className='text-center tracking-widest text-green-700 font-medium font-mono'>In progress...</p>}
                   <label className='flex items-center gap-1 font-semibold mb-0' htmlFor='password'>
                       Password: {!password ? '' : validPassword ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
                   </label>
-                  <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                  <div className="flex items-center rounded-[10px] border border-gray-300 h-10 relative">
                       <input 
                         type={show ? "text" : "password"} 
                         placeholder='Password' 
@@ -104,36 +101,41 @@ const NewPassword = () => {
                         <AiFillEyeInvisible 
                             onClick={
                               () => setShow(prev => !prev)}
-                              className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                              className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                         /> : 
                         <AiFillEye 
                             onClick={
                               () => setShow(prev => !prev)}
-                              className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                              className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                         />
                       }
                   </div>
                 </div>
                 {!validPassword && password &&
-                  <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
-                    <FaInfoCircle />
-                    <span className='pl-2.5'>
-                        must contain at least a letter, a number, a symbol, a minimum of 5 and maximum of 25 characters. Avoid using <span className='uppercase text-xs text-red-500'> quotes</span>
-                    </span>
-                  </p>
+                  <div className='w-full -mt-2 -mb-1 p-0.5 pl-[2px] bg-black rounded-[10px] lowercase flex text-left'>
+                    <FaInfoCircle className='text-xs text-white'/>
+                    <ul className='pl-2.5 text-xs flex flex-col'>
+                      <li className='flex items-center gap-1 flex-wrap'>
+                        <span className={`${(/[A-Za-z]/).test(password) ? 'text-green-600' : 'text-white'}`}>&#9830; contains letters</span>
+                        <span className={`${(/[\d]/).test(password) ? 'text-green-600' : 'text-white'}`}>&#9830; contains numbers</span>
+                        <span className={`${(/[\.@$!%*#?&]/).test(password) ? 'text-green-600' : 'text-white'}`}>&#9830; at least a symbol</span>
+                      </li>
+                      <li className='flex items-center gap-1 flex-wrap'>
+                        <span className={`${(/[A-Za-z\d@$!%*#?&]{5,24}/i).test(password) ? 'text-green-600' : 'text-white'}`}>&#9830; min. of 5, max of 25</span>
+                        <span className={`${(/[^+-/]/).test(password) ? 'text-green-600' : 'text-white'}`}>&#9830; avoid using quotes,(+-"'/)</span>
+                      </li>
+                    </ul>
+                  </div>
                 }
                 <div className='w-full flex flex-col'>
                   <label className='flex items-center gap-1 font-semibold mb-0'
                   htmlFor='confirmPassword'
                   >Confirm Password:</label> 
-                  <div className="flex items-center rounded-[10px] border border-gray-300 h-[45px] relative">
+                  <div className="flex items-center rounded-[10px] border border-gray-300 h-10 relative">
                     <input 
-                      type={show ? "text" : "password"} 
-                      placeholder='Confirm Password' 
-                      id='confirmPassword'
-                      value={confirmPassword} 
-                      required
-                      autoComplete='off'
+                      type={show ? "text" : "password"} placeholder='Confirm Password' 
+                      id='confirmPassword' value={confirmPassword} 
+                      required autoComplete='off'
                       className="bg-blue-50 h-full flex-auto border-none  focus:outline-none text-lg pl-2 object-cover" 
                       onChange={e => setConfirmPassword(e.target.value)}   
                     />
@@ -141,43 +143,43 @@ const NewPassword = () => {
                       <AiFillEyeInvisible 
                           onClick={
                             () => setShow(prev => !prev)}
-                            className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                            className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                       /> : 
                       <AiFillEye 
                           onClick={
                           () => setShow(prev => !prev)}
-                          className='absolute right-1 text-3xl cursor-pointer text-gray-800'
+                          className='absolute right-1 text-2xl cursor-pointer text-gray-800'
                     />
                     }
                   </div>
                 </div>
                 {validPassword && !match && confirmPassword &&
-                  <p className='bg-black text-white flex rounded-[10px] items-center text-sm p-2.5 -mt-[9px] -mb-[5px]'>
-                      <FaInfoCircle />
-                      <span className='pl-2.5'>
-                        password must be a match.
-                      </span>
+                  <p className='bg-black text-white flex rounded-[10px] items-center text-xs p-1.5 -mt-[9px] -mb-[5px]'>
+                    <FaInfoCircle />
+                    <span className='pl-2.5'>
+                      password must be a match.
+                    </span>
                   </p>
                 }
                 {!password && confirmPassword &&
-                  <p className='w-full -mt-2 -mb-1 p-1 pl-[5px] pr-[5px] bg-black rounded-[10px] lowercase text-sm flex flex-col text-left text-white'>
-                      <FaInfoCircle />
-                      <span className='pl-2.5'>
-                        a valid password input is required first.
-                      </span>
+                  <p className='w-full -mt-2 -mb-1 pl-[5px] bg-black rounded-[10px] lowercase flex text-xs p-1 text-left text-white'>
+                    <FaInfoCircle />
+                    <span className='pl-2.5'>
+                      a valid password input is required first.
+                    </span>
                   </p>
                 }
                   <button type="submit" 
-                    className={`h-12 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave ? 'bg-gray-400' : 'bg-blue-500'}`}
+                    className={`h-10 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave ? 'bg-gray-400' : 'bg-blue-500'}`}
                     disabled={!canSave && match && validPassword}
                     >reset password</button>
-                    <Link className='text-white text-center' to='/login'>   
-                    <button 
-                      type='button' 
-                      className="pt-1 pb-1 pl-2 pr-2 w-3/4 m-auto rounded-[10px] bg-teal-300 text-white text-xl cursor-pointer font-medium transition-all hover:brightness-90 hover:text-white active:brightness-100"
-                      >Back To Login
-                    </button>
-                </Link>
+                  <p 
+                    className="text-left font-medium pl-1 underline"
+                    >
+                    <Link className='transition-all cursor-pointer text-black hover:brightness-90 hover:text-gray-700 active:brightness-100' to='/login'>   
+                      Back to Login
+                    </Link>
+                  </p>
                </div>
             </form>
       </div>
@@ -185,7 +187,7 @@ const NewPassword = () => {
 
   return (
     <main className='container h-screen bg-blue-50 flex items-center justify-center midscreen:flex-col midscreen:-mt-10'>
-        {loading ? <p className='text-center text-lg'>Registering...</p> : mainContent}
+      {mainContent}
     </main>
   );
 }

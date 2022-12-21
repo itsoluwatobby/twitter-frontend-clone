@@ -10,7 +10,7 @@ export const shareApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     sharePost: builder.mutation({
       query: ({sharerId, ownerId, postId}) => ({
-        url: `/sharePost?sharerId=${sharerId}&ownerId=${ownerId}&postId=${postId}`,
+        url: `/tweets/sharePost?sharerId=${sharerId}&ownerId=${ownerId}&postId=${postId}`,
         method: 'POST',
         body: ''
       }),
@@ -19,7 +19,7 @@ export const shareApiSlice = apiSlice.injectEndpoints({
 
     unSharePost: builder.mutation({
       query: ({sharerId, ownerId, postId}) => ({
-        url: `/sharePost?sharerId=${sharerId}&ownerId=${ownerId}&postId=${postId}`,
+        url: `/tweets/sharePost?sharerId=${sharerId}&ownerId=${ownerId}&postId=${postId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -27,18 +27,18 @@ export const shareApiSlice = apiSlice.injectEndpoints({
     }),
 
     getSharedPost: builder.query({
-      query: ({userId, sharedPostId}) => `/getSharedPost/${userId}/${sharedPostId}`,
+      query: ({userId, sharedPostId}) => `/tweets/getSharedPost/${userId}/${sharedPostId}`,
       providesTags: (result) => providesList(result, 'SHARED')
     }),
 
     getUserSharedPost: builder.mutation({
-      query: (sharerId) => `/getUserSharedPost/${sharerId}`,
+      query: (sharerId) => `/tweets/getUserSharedPost/${sharerId}`,
       transformResponse: res => res?.data.sort((a, b) => b?.sharedDate.localeCompare(a?.sharedDate)),
       providesTags: (result) => providesList(result, 'SHARED')
     }),
 
     getAllSharedPost: builder.mutation({
-      query: (ownerId) => `/getAllSharedPost/${ownerId}`,
+      query: (ownerId) => `/tweets/getAllSharedPost/${ownerId}`,
       transformResponse: res => res?.data.sort((a, b) => b?.sharedDate.localeCompare(a?.sharedDate)),
       providesTags: (result) => providesList(result, 'SHARED')
     })

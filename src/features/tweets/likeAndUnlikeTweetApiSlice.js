@@ -4,7 +4,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     likeAndUnlikeTweets: builder.mutation({
       query: ({userId, postId}) => ({
-        url: `/likeAndUnlikePost/${userId}/${postId}`,
+        url: `/tweets/likeAndUnlikePost/${userId}/${postId}`,
         method: 'PUT',
         body: ''
       }),
@@ -13,7 +13,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
     
     likeAndUnlikeComments: builder.mutation({
       query: ({userId, commentId}) => ({
-        url: `/likeAndUnlikeComment/${userId}/${commentId}`,
+        url: `/tweets/likeAndUnlikeComment/${userId}/${commentId}`,
         method: 'PUT',
         body: ''
       }),
@@ -22,7 +22,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
 
     disLikeAndUnDisLikeComments: builder.mutation({
       query: ({userId, commentId}) => ({
-        url: `/dislikeAndUnDislikeComment/${userId}/${commentId}`,
+        url: `/tweets/dislikeAndUnDislikeComment/${userId}/${commentId}`,
         method: 'PUT',
         body: ''
       }),
@@ -31,7 +31,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
     
     likeAndUnlikeResponse: builder.mutation({
       query: ({userId, responseId}) => ({
-        url: `/likeAndUnlikeResponse/${userId}/${responseId}`,
+        url: `/tweets/likeAndUnlikeResponse/${userId}/${responseId}`,
         method: 'PUT',
         body: ''
       }),
@@ -40,7 +40,7 @@ export const likeAndUnlikeTweetApiSlice = apiSlice.injectEndpoints({
 
     dislikeAndUnDislikeResponse: builder.mutation({
       query: ({userId, responseId}) => ({
-        url: `/dislikeAndUnDislikeResponse/${userId}/${responseId}`,
+        url: `/tweets/dislikeAndUnDislikeResponse/${userId}/${responseId}`,
         method: 'PUT',
         body: ''
       }),

@@ -11,7 +11,10 @@ export const Card = ({post, setDisplay, singleTweet, setDisplay2, postResponse, 
       }
       className={`option z-30 rounded-3xl bg-white flex flex-col pt-4 pb-4 p-3 gap-2.5 w-80 absolute top-[32px] left-0 ${userRes && 'top-[56px]'}`}>
       <div className='relative'>
-        <img src={(userRes || singleTweet) && 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' || centerTweet && postResponse?.profilePic || post?.profilePic} alt='' className='flex-none w-20 h-20 rounded-full object-cover cursor-pointer'/>
+        {
+          <img src={(userRes || singleTweet) && 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' || centerTweet && postResponse?.profilePic || post?.profilePic} alt='' className='flex-none w-20 h-20 rounded-full object-cover cursor-pointer'/>
+          // : <CgProfile className='text-2xl text-gray'/>
+        }
         <button 
           onMouseOver={() => setFollow(prev => !prev)}
           onMouseLeave={() => setFollow(true)}
@@ -48,9 +51,14 @@ export const Card = ({post, setDisplay, singleTweet, setDisplay2, postResponse, 
       <div className='w-full'>
         {/* atmost friends 3 images */}
         <div className='relative flex-none w-12 flex items-center'>
-          <img src='https://images.unsplash.com/photo-1657214059212-104dac959c56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 z-20'/>
-          <img src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 left-3 z-10'/>
-          <img src='https://images.unsplash.com/photo-1587304878169-505d63fd6b0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 left-6'/>
+          {
+            <>
+              <img src='https://images.unsplash.com/photo-1657214059212-104dac959c56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 z-20'/>
+              <img src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 left-3 z-10'/>
+              <img src='https://images.unsplash.com/photo-1587304878169-505d63fd6b0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-7 h-7 border border-2 border-white rounded-full object-cover cursor-pointer absolute top-0 left-6'/>
+            </>
+            // : <CgProfile className='text-2xl text-gray'/>
+          }
         </div>
         <p className='cursor-pointer hover:underline text-gray-600 font-[500] ml-16 text-[15px]'>Followed by friend1, friend2 and 20 others you know</p>
       </div>

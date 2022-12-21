@@ -4,6 +4,7 @@ import { Card } from './Card';
 import { useState } from 'react';
 import { TweetBase } from './TweetBase';
 import { Link } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
 
 export const Tweets = ({post, centerTweet, postResponse}) => {
   const [like, setLike] = useState(false);
@@ -13,9 +14,11 @@ export const Tweets = ({post, centerTweet, postResponse}) => {
   return (
     <div className='relative bg-white hover:bg-slate-100 pr-4 pl-4 pt-2 pb-2 flex flex-col border-b-[1px] w-full gap-2'>
       <div className='w-full flex items-center'>
-        <img src={centerTweet ? postResponse.profilePic : post?.profilePic} alt={centerTweet ? postResponse?.name : post?.name} 
-          className='cursor-pointer w-12 h-12 rounded-full object-cover flex-none'
-        />
+        {centerTweet && postResponse.profilePic ?
+          <img src={centerTweet ? postResponse.profilePic : post?.profilePic} alt={centerTweet ? postResponse?.name : post?.name} 
+            className='cursor-pointer w-12 h-12 rounded-full object-cover flex-none'
+          /> : <CgProfile className='text-2xl text-gray'/>
+        }
         <div className='flex-auto flex flex-col w-full ml-3'>
           {/* name */}
           <div className='flex items-center justify-between w-full'>
@@ -60,7 +63,7 @@ export const Tweets = ({post, centerTweet, postResponse}) => {
             centerTweet && postResponse?.picture ?
               <img src={postResponse?.picture} alt={postResponse.name} 
                 className='w-full h-60 object-cover rounded-2xl'
-              /> : ''
+              /> : <CgProfile className='text-2xl text-gray'/>
         }
       </div>
       {/* base */}

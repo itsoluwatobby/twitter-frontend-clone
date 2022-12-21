@@ -10,13 +10,13 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     //fetching single post
     fetchSinglePost: builder.query({
-      query: (postId) => `/getPost/${postId}`,
+      query: (postId) => `/tweets/getPost/${postId}`,
       providesTags: result => providesList(result, 'POSTS') 
     }),
 
     //fetch all posts
     fetchPosts: builder.query({
-      query: (userId) => `/getAllPosts/${userId}`,
+      query: (userId) => `/tweets/getAllPosts/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },
@@ -25,7 +25,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
 
     //fetch all posts by a user
     fetchPostsByUser: builder.query({
-      query: (userId) => `/getUserPosts/${userId}`,
+      query: (userId) => `/tweets/getUserPosts/${userId}`,
       transformResponse: response => {
         return response?.data.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },
@@ -35,7 +35,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //create a new post fro user
     createPosts: builder.mutation({
       query: (newPost) => ({
-        url: '/createPost',
+        url: '/tweets/createPost',
         method: 'POST',
         body: newPost
       }),
@@ -45,7 +45,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //update post by user
     updatePost: builder.mutation({
       query: ({postId, postUpdate}) => ({
-        url: `/updatePost/${postId}`,
+        url: `/tweets/updatePost/${postId}`,
         method: 'PUT',
         body: postUpdate
       }),
@@ -55,7 +55,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //delete user post by user
     deletePost: builder.mutation({
       query: ({userId, postId}) => ({
-        url: `/deletePost/${userId}/${postId}`,
+        url: `/tweets/deletePost/${userId}/${postId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -65,7 +65,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //delete user post by admin
     deletePostByAdmin: builder.mutation({
       query: ({adminId, postId}) => ({
-        url: `/adminPostDelete/${adminId}/${postId}`,
+        url: `/tweets/adminPostDelete/${adminId}/${postId}`,
         method: 'DELETE',
         body: ''
       }),
@@ -75,7 +75,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //delete user posts by admin
     deleteUserPostsByAdmin: builder.mutation({
       query: ({adminId, userId}) => ({
-        url: `/deleteUserPosts?adminId=${adminId}&userId=${userId}`,
+        url: `/tweets/deleteUserPosts?adminId=${adminId}&userId=${userId}`,
         method: 'DELETE',
         body: ''
       }),
