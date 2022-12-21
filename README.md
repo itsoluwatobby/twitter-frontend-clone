@@ -92,6 +92,9 @@ Admin role has the ability of granting additional roles to a specific user
 * [-] Users can update their info
 * [-] Users can delete their account
 * [-] Email verification based registration
-* [-] Email verification based password reset
+* [x] Email verification based password reset
+* [x] Registration page
+* [x] Login page
+* [x] Password reset page
 
 
