@@ -13,6 +13,7 @@ export const CenterTweet = () => {
   const singleTweet = useSelector(state => getSingleTweet(state, tweetId))
   const user = useSelector(state => getUserTweets(state, tweetId));
   //const {data: user} = useGetUserQuery(singleTweet?.userId)
+  
   return (
     <main className='flex-auto flex flex-col overflow-y-scroll border-l border-r overflow-x-hidden'>
       <TopHome centerTweet/>

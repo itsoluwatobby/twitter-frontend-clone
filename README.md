@@ -72,7 +72,7 @@ Admin role has the ability of granting additional roles to a specific user
 
 ***
 ## _FEATURES_
-* [-] Tweets creation
+* [x] Tweets creation
 * [x] Tweets like, unlike
 * [-] Tweets update
 * [-] Tweets deletion

@@ -32,7 +32,7 @@ export const TweetBase = ({post, centerTweet, postResponse}) => {
              : <AiOutlineHeart onClick={handleLike} />
           }
         </p>
-        <span className='text-gray-700 hover:text-red-400'>{post?.likes.length || centerTweet && postResponse?.heart}</span>
+        <span className={`${post?.likes.includes(userId) ? 'text-red-500' : 'text-gray-700'}`}>{post?.likes.length || centerTweet && postResponse?.heart}</span>
       </div>
       <div className='text-gray-700 cursor-pointer hover:bg-gray-100 hover:text-blue-400 p-[4px] hover:rounded-full text-[20px]'>
         {<FiShare /> || centerTweet && <FiShare />}

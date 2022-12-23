@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { TweetBase } from './TweetBase';
 import { Link } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
-import {formatDistanceToNow, parseISO} from 'date-fns';
+import {formatDistanceToNow, parseISO, format} from 'date-fns';
+//import {format} from 'timeago.js'; 
 import { useSelector } from 'react-redux';
 import { getUserTweets } from '../../features/users/usersSlice';
 
@@ -45,7 +46,7 @@ export const Tweets = ({post, centerTweet, postResponse}) => {
                 </Link>
                 <span className='text-gray-600'>&#x2022;</span>
               </p>
-                <span className='text-gray-700'>{centerTweet ? postResponse.dateTime : (post?.postDate)}</span>
+                <span className='text-gray-700'>{centerTweet ? postResponse.dateTime : format(new Date(post?.postDate.split('T')[0]), 'MMM dd')}</span>
             </div>
             <RiMoreLine className='text-2xl cursor-pointer'/>
           </div>

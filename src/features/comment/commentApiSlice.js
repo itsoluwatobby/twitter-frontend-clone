@@ -11,7 +11,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //fetching single comment
     getSingleComment: builder.query({
       query: ({commentId, postId}) => `/tweets/getComment/${commentId}/${postId}`,
-      providesTags: (result) => providesList(result, 'COMMENTS')
+      providesTags: (result) => [{ type: 'COMMENTS', id: 'LIST' }]
     }),
 
     //fetch all user comments

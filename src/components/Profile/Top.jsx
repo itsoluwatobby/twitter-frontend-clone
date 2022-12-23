@@ -49,7 +49,7 @@ export const Top = ({user}) => {
           </div>
           <p className='flex items-center gap-1'>
             <MdOutlineDateRange className='text-2xl text-gray-600'/>
-            <span className='text-gray-700 capitalize'>Joined {format(new Date(), 'MMM, yyyy')}</span>
+            <span className='text-gray-700 capitalize'>Joined {format(new Date(), 'MMM dd, yyyy')}</span>
           </p>
         </div>
       </div>

@@ -6,19 +6,19 @@ import {IoMdSwitch, IoIosPeople, IoIosArrowDown} from 'react-icons/io';
 import {VscSmiley, VscLocation} from 'react-icons/vsc';
 import {TbCalendarStats, TbPhoto} from 'react-icons/tb';
 import { useEffect, useState } from 'react';
+import { useCreatePostsMutation } from '../../features/tweets/tweetApiSlice';
+import {sub} from 'date-fns';
 
 export const Top = () => {
   const [what, setWhat] = useState(false);
   const [everyone, setEveryone] = useState(false);
   const [reply, setReply] = useState(false);
+  const userId = localStorage.getItem('userId');
   const [count, setCount] = useState(0);
+  const [tweet, setTweet] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
   const [location, setLocation] = useState({});
-
-  const handleTweet = async() => {
-    setWhat(false)
-    setEveryone(false)
-    setReply(false)
-  }
+  const [createPosts, {isLoading, isError}] = useCreatePostsMutation()
 
   const getLocation = () => {
     if(!navigator.geolocation) return alert('Your browser does not support geolocation')
@@ -32,8 +32,29 @@ export const Top = () => {
     }
   }
 
+  const handleTweet = async() => {
+    setWhat(false)
+    setEveryone(false)
+    setReply(false)
+    try{
+      if(!tweet) return
+      const dateTime = sub(new Date(), { minutes: 0 }).toISOString();
+      const newTweet = { userId, postDate: dateTime, body: tweet }
+      await createPosts(newTweet).unwrap()
+      setTweet('')
+    }catch(isError){
+      let message;
+      isError.status === 400 ? message = isError?.data : 
+      isError.status === 401 ? message = isError?.data : 
+      isError.status === 403 ? message = isError?.data : 
+      isError.status === 409 ? message = isError?.data : 
+      message ='no server response'
+      setErrorMessage(message)
+    }
+  }
+
   return (
-    <header className='bg-white relative flex flex-col w-full pl-2 pr-2 pb-3 gap-1 border-b-[1px]'>
+    <header onClick={() => setErrorMessage(null)} className='bg-white relative flex flex-col w-full pl-2 pr-2 pb-3 gap-1 border-b-[1px]'>
       <div className='cursor-pointer hover:bg-opacity-50 flex p-2.5 rounded-2xl items-center bg-transparent w-full'>
         <div className='absolute top-3 w-14 h-14 rounded-full bg-blue-500 flex-none'></div>
         {/* <img src={post?.profilePic} alt={post?.name} 
@@ -56,6 +77,8 @@ export const Top = () => {
             // ref={whatsRef}
             placeholder="What's happening?"
             onFocus={() => setWhat(true)}
+            value={tweet}
+            onChange={(e) => setTweet(e.target.value)}
             className='flex-auto mt-4 h-12 border-none pl-2 placeholder:text-gray-500 placeholder:text-[22px] focus:outline-none bg-transparent'
           />
           {what && 
