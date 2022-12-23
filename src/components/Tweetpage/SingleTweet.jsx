@@ -7,7 +7,7 @@ import { TopHome } from '../Home/TopHome'
 import { Card } from '../Home/Card';
 import { useState } from 'react';
 
-export const SingleTweet = () => {
+export const SingleTweet = ({ tweet, user }) => {
   const [display2, setDisplay2] = useState(false)
 
   return (
@@ -25,10 +25,10 @@ export const SingleTweet = () => {
                 <span 
                    onMouseOver={() => setDisplay2(true)}
                    onMouseLeave={() => setDisplay2(false)}
-                  className='hover:underline'>YabaLeftOnline</span>
+                  className='hover:underline'>{user?.firstName}</span>
                 <BsPatchCheckFill className='text-lg text-blue-600'/>
               </p>
-              <p className='text-gray-600'>@yabaleftonline</p>
+              <p className='text-gray-600'>{user?.username || user?.email}</p>
             </div>
           </div>
           <div className='p-2 hover:bg-blue-50 rounded-full cursor-pointer'>
@@ -36,7 +36,7 @@ export const SingleTweet = () => {
           </div>
         </div>
         {/* Post */}
-        <p className='text-lg font-medium'>What turns you on?</p>
+        <p className='text-lg font-medium'>{tweet?.body}</p>
         <div className='flex items-center gap-1 font-medium'>
           <div className='flex items-center gap-1 font-medium hover:underline cursor-pointer'>
             <p className='flex items-center gap-1'>
@@ -53,7 +53,7 @@ export const SingleTweet = () => {
         <hr />
         <div className='flex items-center gap-6'>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
-            <span className='font-medium'>10</span>
+            <span className='font-medium'>{tweet?.isShared.length}</span>
             <span className='text-gray-500'>Retweets</span>
           </p>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
@@ -61,7 +61,7 @@ export const SingleTweet = () => {
             <span className='text-gray-500'>Quote Tweets</span>
           </p>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
-            <span className='font-medium'>45</span>
+            <span className='font-medium'>{tweet?.likes.length}</span>
             <span className='text-gray-500'>Likes</span>
           </p>
         </div>
@@ -100,7 +100,7 @@ export const SingleTweet = () => {
           </div>
         </div>  
         <hr />
-        {display2 && <Card singleTweet={true} setDisplay2={setDisplay2}/>}
+        {display2 && <Card singleUser={user} singleTweet={true} setDisplay2={setDisplay2}/>}
       </div>
     </div>
   )

@@ -12,12 +12,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
     //get single user
     getUser: builder.query({
       query: (userId) => `/users/getUser/${userId}`,
-      providesTags: (result) => providesList(result, 'USERS')
+      providesTags: result => [{ type: 'USERS', id: 'LIST' }]
     }),
 
     //fetch all users
     getAllUsers: builder.query({
-      query: () => '/users/getUsers',
+      query: (userId) => `/users/getUsers?userId=${userId}`,
       providesTags: (result) => providesList(result, 'USERS')
     }),
 

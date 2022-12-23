@@ -73,9 +73,10 @@ Admin role has the ability of granting additional roles to a specific user
 ***
 ## _FEATURES_
 * [-] Tweets creation
-* [-] Tweets like, unlike
+* [x] Tweets like, unlike
 * [-] Tweets update
 * [-] Tweets deletion
+* [x] Tweets fetching
 * [x] Single tweet page
 * [-] Commenting on tweets
 * [-] Replying comments on tweets
@@ -83,15 +84,15 @@ Admin role has the ability of granting additional roles to a specific user
 * [-] Tweets retweet
 * [-] Role Based authentication
 * [-] Admin page
-* [-] Role and token based authentication
-* [-] following and unfollowing a user
+* [x] Token based authentication
+* [x] following and unfollowing a user
 * [-] Granting of roles to users by only admin
 * [-] Deletion of tweets/users by only admin
 * [-] Deleting comments and responses by only the post author
 * [-] Locking and Unlocking of users account by admin by only admin
 * [-] Users can update their info
 * [-] Users can delete their account
-* [-] Email verification based registration
+* [x] Email verification based registration
 * [x] Email verification based password reset
 * [x] Registration page
 * [x] Login page

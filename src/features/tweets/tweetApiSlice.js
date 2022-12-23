@@ -18,7 +18,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     fetchPosts: builder.query({
       query: (userId) => `/tweets/getAllPosts/${userId}`,
       transformResponse: response => {
-        return response?.data.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
+        return response?.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },
       providesTags: (result) => providesList(result, 'POSTS')
     }),

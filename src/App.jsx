@@ -23,6 +23,7 @@ function App() {
           <Route path='register' element={<Register />}/>
           <Route path='forgot_password' element={<ForgetPassword />}/>
           <Route path='new_password' element={<NewPassword />}/>
+          {/* protect success route later by using d query as condition*/}
           <Route path='successful_verification' element={<Success />}/>
 
           <Route element={<TweetLayout />}>
@@ -30,11 +31,9 @@ function App() {
             <Route index element={<Home />}/>
 
             <Route path='/tweet' element={<ProtectedRoute />}>
-
               <Route path='explore' element={<Explore />}/>
-              <Route path='tweetPage' element={<TweetPage />}/>
-              <Route path='profile' element={<Profile />}/>
-              
+              <Route path='tweetPage/:tweetId' element={<TweetPage />}/>
+              <Route path='profile/:userId' element={<Profile />}/>           
             </Route>
 
           </Route>

@@ -6,9 +6,13 @@ import {BsBookmark, BsBell, BsPersonFill, BsBellFill} from 'react-icons/bs'
 import {BsPerson} from 'react-icons/bs'
 import { FaTwitter } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '../../features/auth/authSlice'
 
 export const LeftSide = () => {
-  const {pathname} = useLocation()
+  const {pathname} = useLocation();
+  const currentUser = useSelector(selectCurrentUser);
+  const userId = localStorage.getItem('userId');
 
   return (
     <aside className='minscreen:pl-1.5 pl-12 pb-2 pr-2 bg-white max-w-[22%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
@@ -61,26 +65,28 @@ export const LeftSide = () => {
         </Link>
         <div title='More' className='minscreen:w-[52px] minscreen:h-[52px] minscreen:hover:rounded-full minscreen:ml-2 flex minscreen:grid minscreen:place-content-center items-center pt-3 pb-3 gap-4 cursor-pointer hover:rounded-md hover:bg-gray-200 text-[28px]'>
           <CgMoreO className='text-gray-700'/>
-          <h1 className={`minscreen:hidden ${pathname === '/tweet/more' && 'font-semibold'}`}>More</h1>
+          <h1 className={`text-xl minscreen:hidden ${pathname === '/tweet/more' && 'font-semibold'}`}>More</h1>
         </div>
         <div title='Tweet' className='hidden minscreen:ml-2 minscreen:grid minscreen:place-content-center p-2.5 cursor-pointer rounded-full w-14 h-14 bg-blue-600 text-white'>
           <RiLeafLine className='text-[28px]'/>
         </div>
         <button className='minscreen:hidden rounded-full p-3 bg-blue-500 mt-2'>Tweet</button>
       </div>
-      <Link to='/tweet/profile'><div className='before minscreen:mt-12 mt-12 flex-none flex items-center gap-2 m-auto h-20 w-full p-2 pl-3 pr-3 hover:bg-gray-300 hover:rounded-full'>
-        {
-          <img src='https://images.unsplash.com/photo-1634150872480-1a193b9ee47f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGVsb24lMjBtdXNrfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/> 
-          //: <CgProfile className='text-2xl text-gray'/>
+      <Link to={`/tweet/profile/${userId}`}>
+        <div className='before minscreen:mt-12 mt-12 flex-none flex items-center gap-1.5 m-auto h-20 w-full p-1 pl-2 pr-2 hover:bg-gray-300 hover:rounded-full'>
+        {currentUser?.profilePicture ? 
+          <img src={currentUser?.profilePicture} alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/> 
+          : <CgProfile className='text-gray-500 minscreen:text-5xl text-7xl'/>
         }
         <div className='minscreen:hidden w-full flex items-center gap-4 justify-between'>
           <p className='flex flex-col cursor-pointer'>
-            <span className='font-semibold'>Oluwatobiloba</span>
-            <span className='text-gray-800'>@itsoluwatobby</span>
+            <span className='font-semibold'>{currentUser?.firstName}</span>
+            <span className='text-gray-800'>{currentUser?.username || currentUser?.email}</span>
           </p>
           <RiMoreLine className='cursor-pointer text-2xl font-semibold'/>
         </div>
-      </div></Link>
+      </div>
+      </Link>
     </aside>
   )
 }

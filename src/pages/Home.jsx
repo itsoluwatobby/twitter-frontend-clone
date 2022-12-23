@@ -5,7 +5,7 @@ import { RightSide } from '../components/Home/RightSide'
 
 export const Home = () => {
   return (
-    <main className='flex h-screen max-w-full'>
+    <main className='flex h-screen w-full'>
       <Center />
     </main>
   )

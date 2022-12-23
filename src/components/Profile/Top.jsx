@@ -3,8 +3,16 @@ import {TbBallon} from 'react-icons/tb';
 import {MdOutlineDateRange} from 'react-icons/md';
 import {RiLink} from 'react-icons/ri';
 import { Tweets } from '../Home/Tweets';
+import { format, parseISO, formatDistanceToNow } from 'date-fns'
 
-export const Top = () => {
+export const Top = ({user}) => {
+  console.log(user)
+
+  function formatTime(date){
+    const dateTime = parseISO(date)
+    return formatDistanceToNow(dateTime)
+  }
+
   return (
     <section className='flex flex-col'>
       <div className='relative w-full'>
@@ -19,15 +27,15 @@ export const Top = () => {
       </div>
       <div className='mt-20 p-3 flex flex-col gap-4'>
         <p className='flex flex-col text-[20px] font-[700] tracking-wider'>
-          <span>Oluwatobiloba</span>
-          <span className='text-base font-[400] text-gray-600'>@itsoluwatobby</span>
+          <span>{user?.firstName}</span>
+          <span className='text-base font-[400] text-gray-600'>@{user?.username || user?.email}</span>
         </p>
-        <p>Get to know me</p>
+        <p>{user?.desc}</p>
         <div className='flex flex-col gap-1'>
           <div className='flex items-center gap-3'>
             <p className='flex items-center gap-1'>
               <VscLocation className='text-2xl text-gray-800'/>
-              <span className='text-gray-700 capitalize'>Lagos</span>
+              <span className='text-gray-700 capitalize'>{user?.city}</span>
             </p>
             {/* extra link optional */}
             <p className='flex items-center gap-1'>
@@ -36,12 +44,12 @@ export const Top = () => {
             </p>
             <p className='flex items-center gap-1'>
               <TbBallon className='text-2xl text-gray-700'/>
-              <span className='text-gray-700 capitalize'>Born {'March 31, 1234'}</span>
+              <span className='text-gray-700 capitalize'>Born {format(new Date(), 'MMM dd, yyyy')}</span>
             </p>
           </div>
           <p className='flex items-center gap-1'>
             <MdOutlineDateRange className='text-2xl text-gray-600'/>
-            <span className='text-gray-700 capitalize'>Joined {'March 1234'}</span>
+            <span className='text-gray-700 capitalize'>Joined {format(new Date(), 'MMM, yyyy')}</span>
           </p>
         </div>
       </div>

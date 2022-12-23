@@ -25,7 +25,7 @@ const Register = () => {
    });
 
    const [registerUser, 
-    {isLoading, isError, isSuccess, error}] = useRegisterUserMutation()
+    {isLoading, isError, isSuccess, error, reset}] = useRegisterUserMutation()
 
    const {firstName, lastName, email, password, confirmPassword} = register;
 
@@ -74,10 +74,10 @@ const Register = () => {
     
     //console.log(errorMessage)
    let successContent = ( 
-      <div className='flex w-[70%] items-center justify-center bg-cyan-400 rounded-[10px] p-5 text-green-500 text-2xl right-7 top-10 z-20 absolute'>
-         <p>
-            Registration Successful!!
-         </p>
+      <div className='midscreen:mt-12 flex flex-col whitespace-nowrap midscreen:w-[90%] items-center midscreen:gap-6 bg-blue-100 shadow-2xl rounded-[10px] p-5 text-black text-2xl border border-gray-400 justify-evenly'>
+        <p>Registration Successful!!</p>
+        <span className='text-base'>A verification link has been sent to your email.</span>
+        <span className='text-lg'>Please verify your account</span>
       </div>     
    )
 
@@ -99,10 +99,15 @@ const Register = () => {
             </h3>
             <span className="mt-2 text-2xl capitalize">Connect with friends and the world around you on Oluwatobby</span>
          </div>
+          {isSuccess ? successContent
+          :
           <form onSubmit={handleRegister}
           className="relative flex-auto">
             <div
-              onClick={() => setErrorMessage(null)}
+              onClick={() => {
+                setErrorMessage(null)
+                reset()
+              }}
               className="p-4 bg-white rounded-[10px] flex flex-col shadow-2xl gap-2.5"> 
               <div className='flex w-full gap-2 midscreen:flex-col'>
                 <div className='w-full flex flex-col'> 
@@ -155,7 +160,6 @@ const Register = () => {
                     </ul>
                 </div>
               }
-              {/* {success && successContent} */}
               {errorMessage && errorContent}
               <div className='w-full flex flex-col'>
                 <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='password'>
@@ -253,6 +257,7 @@ const Register = () => {
               </p>
           </div>
         </form>
+        }
       </div>
    )
 

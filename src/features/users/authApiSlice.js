@@ -8,7 +8,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: '/users/register',
         method: 'POST',
         body: {...credentials}
-      })
+      }),
+      //invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     login: builder.mutation({
@@ -16,7 +17,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: '/users/login',
         method: 'POST',
         body: {...credentials}
-      })
+      }),
+      //invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     resetPassword: builder.mutation({
@@ -24,7 +26,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: '/users/reset_password',
         method: 'POST',
         body: email
-      })
+      }),
+      //invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
 
     sendResetPassword: builder.mutation({
@@ -36,7 +39,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
     }),
 
     logout: builder.query({
-      query: () => '/users/logout'
+      query: () => '/users/logout',
+      //invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
     }),
   })
 })

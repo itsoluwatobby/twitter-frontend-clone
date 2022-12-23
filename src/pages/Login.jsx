@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaTwitter } from 'react-icons/fa';
 import { useLoginMutation } from '../features/users/authApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCredentials, trustDevice, trustThisDevice } from '../features/auth/authSlice';
 //import Spinner from '../assets/Spinner';
 
 const Login = () => {
    const [show, setShow] = useState(false);
    const inputRef = useRef();
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
+   const location = useLocation();
+   const from = location?.search?.from?.pathname || '/' 
    const [errorMessage, setErrorMessage] = useState(null); 
-   const [loading, setLoading] = useState(false);
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [login, {isLoading, isError, isSuccess}] = useLoginMutation();
+   const dispatch = useDispatch();
+   const trust = useSelector(trustThisDevice);
 
    useEffect(() => {
       inputRef.current.focus()
@@ -21,11 +26,13 @@ const Login = () => {
 
    const handleLogin = async(e) => {
       e.preventDefault()
-      setLoading(true)
       try{ 
-         await login({email, password}).unwrap();
-         JSON.stringify(localStorage.setItem('currentUser', true))
-         //navigate('/')
+         const userData = await login({email, password}).unwrap();
+         dispatch(setCredentials(userData))
+         trust && localStorage.setItem('loggedInUser', true)
+         localStorage.setItem('userId', userData?.rest?._id)
+         
+         navigate(from, { replace: true })
          setEmail('')
          setPassword('')
       }
@@ -108,6 +115,12 @@ const Login = () => {
                       />
                     }
                 </div>
+               </div>
+               <div className='flex gap-3 items-center font-medium'>
+                  <input type="checkbox" checked={trust} 
+                     className='w-4 h-4 border-black'
+                     onChange={() => dispatch(trustDevice(!trust))} id='trust'/>
+                  <label htmlFor="trust">Trust this device</label>
                </div>
                <button 
                   type="submit" 
