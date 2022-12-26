@@ -32,7 +32,7 @@ function App() {
 
             <Route path='/tweet' element={<ProtectedRoute />}>
               <Route path='explore' element={<Explore />}/>
-              <Route path='tweetPage/:tweetId' element={<TweetPage />}/>
+              <Route path='tweetPage/:tweetId/:userId' element={<TweetPage />}/>
               <Route path='profile/:userId' element={<Profile />}/>           
             </Route>
 

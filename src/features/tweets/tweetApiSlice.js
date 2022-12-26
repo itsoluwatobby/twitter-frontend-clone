@@ -1,22 +1,23 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
 function providesList(resultsId, tagTypes){
-  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+  return resultsId ? [...resultsId.map(({ _id }) => ({ type: tagTypes, id: _id })), 
                       { type: tagTypes, id: 'LIST' }]
                      : [{ type: tagTypes, id: 'LIST' }]
 }
 
 export const tweetApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
+    
     //fetching single post
     fetchSinglePost: builder.query({
       query: (postId) => `/tweets/getPost/${postId}`,
-      providesTags: result => providesList(result, 'POSTS') 
+      providesTags: result => ['POSTS'] 
     }),
 
     //fetch all posts
     fetchPosts: builder.query({
-      query: (userId) => `/tweets/getAllPosts/${userId}`,
+      query: () => '/tweets/getAllPosts',
       transformResponse: response => {
         return response?.sort((a, b) => b?.postDate.localeCompare(a?.postDate))
       },

@@ -29,9 +29,9 @@ export const RightSide = () => {
   useEffect(() => {
     dispatch(allUsers(data))
   }, [data, currentUser])
-console.log(data)
+
   return (
-    <aside className='midscreen:hidden relative flex-none w-[30%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
+    <aside className='mildscreen:hidden relative flex-none w-[30%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
       <div className='w-[97%] flex flex-col gap-4'>
         <div className='flex p-2.5 rounded-2xl items-center gap-2 bg-gray-200 w-full relative'>
           <BiSearch className='text-[22px]'/>
@@ -48,6 +48,7 @@ console.log(data)
               {users ?
                 users.map(user => (
                   <Link 
+                    onClick={() => setSearch('')}
                     to={`tweet/profile/${user?._id}`} 
                     key={user?._id}>
                     <li 
@@ -77,7 +78,7 @@ console.log(data)
           }
         </div>
       </div>
-      <div className='message cursor-pointer fixed flex items-center justify-between w-[380px] bg-white p-3 right-5 bottom-0 border rounded-tl-lg rounded-tr-lg'>
+      <div className='message cursor-pointer fixed flex items-center justify-between w-[380px] bg-white p-3 right-5 bottom-0 border rounded-tl-lg rounded-tr-lg midscreen:hidden'>
         <p className='font-semibold text-[22px] flex-auto'>Messages</p>
         <div className='flex-none flex items-center justify-between w-14 text-2xl'>
         <div className='cursor-pointer hover:bg-gray-200 p-[6px] hover:rounded-full text-[20px]'>

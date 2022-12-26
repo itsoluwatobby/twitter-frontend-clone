@@ -8,7 +8,7 @@ module.exports = {
     screens:{
       mildscreen: {'max': '600px'},
       midscreen: {'max': '768px'},
-      minscreen: {'max': '908px'},
+      minscreen: {'max': '908px'}
     }
   },
   plugins: [],

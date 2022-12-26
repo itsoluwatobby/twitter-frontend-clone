@@ -1,7 +1,7 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
 function providesList(resultsId, tagTypes){
-  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+  return resultsId ? [...resultsId.map(({ _id }) => ({ type: tagTypes, id: _id })), 
                       { type: tagTypes, id: 'LIST' }]
                      : [{ type: tagTypes, id: 'LIST' }]
 }
@@ -18,7 +18,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     fetchUserComments: builder.query({
       query: (userId) => `/tweets/getComments/${userId}`,
       transformResponse: response => {
-        return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
+        return response.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
       providesTags: (result) => providesList(result, 'COMMENTS')
     }),
@@ -27,7 +27,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     fetchUserCommentsByAdmin: builder.query({
       query: ({adminId, userId}) => `/tweets/getUserComments/${adminId}/${userId}`,
       transformResponse: response => {
-        return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
+        return response.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
       providesTags: (result) => providesList(result, 'COMMENTS')
     }),
@@ -35,8 +35,8 @@ export const commentApiSlice = apiSlice.injectEndpoints({
     //fetch all posts by a user
     getCommentsInPost: builder.query({
       query: (postId) => `/tweets/getCommentsInPost/${postId}`,
-      transformResponse: response => {
-        return response?.data.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
+      transformResponse: res => {
+        return res?.sort((a, b) => b?.commentDate.localeCompare(a?.commentDate))
       },
       providesTags: (result) => providesList(result, 'COMMENTS')
     }),

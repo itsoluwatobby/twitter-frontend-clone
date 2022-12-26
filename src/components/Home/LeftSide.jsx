@@ -5,17 +5,25 @@ import {CgMoreO} from 'react-icons/cg'
 import {BsBookmark, BsBell, BsPersonFill, BsBellFill} from 'react-icons/bs'
 import {BsPerson} from 'react-icons/bs'
 import { FaTwitter } from 'react-icons/fa'
-import { Link, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectCurrentUser } from '../../features/auth/authSlice'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser, selectCurrentUser } from '../../features/auth/authSlice'
+import { useLogoutQuery } from '../../features/users/authApiSlice'
 
 export const LeftSide = () => {
   const {pathname} = useLocation();
   const currentUser = useSelector(selectCurrentUser);
   const userId = localStorage.getItem('userId');
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const logoutHandler = async() => {
+    dispatch(logoutUser())
+    navigate('/login')
+  }
 
   return (
-    <aside className='minscreen:pl-1.5 pl-12 pb-2 pr-2 bg-white max-w-[22%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
+    <aside className='minscreen:pl-1.5 pl-12 pb-2 pr-2 bg-white max-w-[25%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
       <div className='minscreen:ml-2 flex-none mb-2 rounded-full hover:bg-blue-100 cursor-pointer grid place-content-center h-[52px] w-[52px]'>
         <FaTwitter className='text-blue-500 text-3xl'/>
       </div>
@@ -72,8 +80,9 @@ export const LeftSide = () => {
         </div>
         <button className='minscreen:hidden rounded-full p-3 bg-blue-500 mt-2'>Tweet</button>
       </div>
+      <button onClick={logoutHandler}>Logout</button>
       <Link to={`/tweet/profile/${userId}`}>
-        <div className='before minscreen:mt-12 mt-12 flex-none flex items-center gap-1.5 m-auto h-20 w-full p-1 pl-2 pr-2 hover:bg-gray-300 hover:rounded-full'>
+      <div className='before minscreen:mt-11 mt-11 flex-none flex items-center gap-1.5 m-auto h-20 w-full p-1 pl-2 pr-2 hover:bg-gray-300 hover:rounded-full'>
         {currentUser?.profilePicture ? 
           <img src={currentUser?.profilePicture} alt='' className='flex-none w-12 h-12 rounded-full object-cover cursor-pointer'/> 
           : <CgProfile className='text-gray-500 minscreen:text-5xl text-7xl'/>

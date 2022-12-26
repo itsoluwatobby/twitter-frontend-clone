@@ -1,12 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Outlet } from 'react-router-dom'
-import { selectCurrentToken, selectCurrentUser } from '../features/auth/authSlice'
+import { Outlet, useLocation, Navigate } from 'react-router-dom'
+import { selectCurrentToken } from '../features/auth/authSlice'
 
 export const ProtectedRoute = () => {
-  const token = useSelector(selectCurrentToken);
-  const isLoggedIn = localStorage.getItem('loggedInUser');
-  const roles = useSelector(selectCurrentUser);
+  const location = useLocation()
+  const currentToken = useSelector(selectCurrentToken);
 
-  return <Outlet />
+  return (
+    currentToken 
+      ? <Outlet /> 
+        : <Navigate to='/login' 
+            state={{ from : location }} replace />
+  )
 }

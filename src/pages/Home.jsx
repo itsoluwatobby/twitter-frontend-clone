@@ -1,11 +1,9 @@
 import React from 'react'
 import { Center } from '../components/Home/Center'
-import { LeftSide } from '../components/Home/LeftSide'
-import { RightSide } from '../components/Home/RightSide'
 
 export const Home = () => {
   return (
-    <main className='flex h-screen w-full'>
+    <main className='flex h-screen midscreen:min-w-[90%] w-auto'>
       <Center />
     </main>
   )

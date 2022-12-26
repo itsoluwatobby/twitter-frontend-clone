@@ -15,7 +15,8 @@ const usersSlice = createSlice({
 
 export const selectAllUsers = state => state?.users?.users
 export const selectAllTweets = state => state?.users?.tweets
-export const {allUsers, allTweets} = usersSlice.actions
+
+export const { allUsers, allTweets } = usersSlice.actions
 
 export const getSingleUser = (state, userId) => {
   return state?.users?.users.find(user => user?._id === userId)

@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = { 
+  user: {}, 
+  token: null, 
+  trust: JSON.parse(localStorage.getItem('isLoggedIn')) || false, 
+  currentUser: {} 
+}
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { user: {}, token: null, trust: false, currentUser: {} },
+  initialState,
   reducers:{
     setCredentials: (state, action) => {
       state.token = action.payload?.accessToken
@@ -11,10 +18,11 @@ const authSlice = createSlice({
     getCurrentUser: (state, action) => {
       state.currentUser = action.payload
     },
-    logout: state => {
+    logoutUser: state => {
       state.user = {}
       state.token = null
       state.currentUser = {}
+      localStorage.setItem('isLoggedIn', false)
     },
     trustDevice: (state, action) => {
       state.trust = action.payload
@@ -22,7 +30,7 @@ const authSlice = createSlice({
   }
 })
 
-export const { setCredentials, logout, trustDevice, getCurrentUser } = authSlice.actions
+export const { setCredentials, logoutUser, trustDevice, getCurrentUser } = authSlice.actions
 export const selectCurrentUser = state => state?.auth?.currentUser
 export const selectCurrentToken = state => state?.auth?.token
 export const trustThisDevice = state => state?.auth.trust

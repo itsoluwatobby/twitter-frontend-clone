@@ -3,15 +3,10 @@ import {TbBallon} from 'react-icons/tb';
 import {MdOutlineDateRange} from 'react-icons/md';
 import {RiLink} from 'react-icons/ri';
 import { Tweets } from '../Home/Tweets';
-import { format, parseISO, formatDistanceToNow } from 'date-fns'
+import { format } from 'date-fns';
 
 export const Top = ({user}) => {
   console.log(user)
-
-  function formatTime(date){
-    const dateTime = parseISO(date)
-    return formatDistanceToNow(dateTime)
-  }
 
   return (
     <section className='flex flex-col'>
@@ -44,12 +39,17 @@ export const Top = ({user}) => {
             </p>
             <p className='flex items-center gap-1'>
               <TbBallon className='text-2xl text-gray-700'/>
-              <span className='text-gray-700 capitalize'>Born {format(new Date(), 'MMM dd, yyyy')}</span>
+             {
+              user?.dob ?
+              <span>
+                {`Born ${format(new Date(user?.dob.split('T')[0]), 'MMM dd')}`}
+              </span> : <span>Birth day</span>
+              }
             </p>
           </div>
           <p className='flex items-center gap-1'>
             <MdOutlineDateRange className='text-2xl text-gray-600'/>
-            <span className='text-gray-700 capitalize'>Joined {format(new Date(), 'MMM dd, yyyy')}</span>
+            <span className='text-gray-700 capitalize'>Joined {format(new Date(user?.registrationDate.split('T')[0]), 'MMM dd, yyyy')}</span>
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export const Top = ({user}) => {
           <p className={`grid place-content-center p-4 pr-12 pl-12 font-medium cursor-pointer hover:bg-gray-300`}>Media</p>
           <p className={`grid place-content-center p-4 pr-12 pl-12 font-medium cursor-pointer hover:bg-gray-300`}>Likes</p>
         </div>
-        <Tweets />
+        {/* <Tweets /> */}
     </section>
   )
 }

@@ -29,9 +29,9 @@ const Login = () => {
       try{ 
          const userData = await login({email, password}).unwrap();
          dispatch(setCredentials(userData))
-         trust && localStorage.setItem('loggedInUser', true)
+
+         trust && localStorage.setItem('isLoggedIn', true)
          localStorage.setItem('userId', userData?.rest?._id)
-         
          navigate(from, { replace: true })
          setEmail('')
          setPassword('')

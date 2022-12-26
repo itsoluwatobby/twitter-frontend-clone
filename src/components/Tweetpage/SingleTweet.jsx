@@ -3,15 +3,24 @@ import { FiShare } from 'react-icons/fi';
 import { AiOutlineComment, AiFillHeart, AiOutlineRetweet, AiOutlineHeart } from 'react-icons/ai';
 import { BsPatchCheckFill } from 'react-icons/bs'
 import { RiMoreLine } from 'react-icons/ri'
-import { TopHome } from '../Home/TopHome'
 import { Card } from '../Home/Card';
 import { useState } from 'react';
+import { useLikeAndUnlikeTweetsMutation } from '../../features/tweets/likeAndUnlikeTweetApiSlice';
+import {format} from 'date-fns';
+import { CommentRes } from './CommentRes';
 
-export const SingleTweet = ({ tweet, user }) => {
+export const SingleTweet = (
+  { tweet, user, refetch }) => {
   const [display2, setDisplay2] = useState(false)
+  const [likeAndUnlikeTweets] = useLikeAndUnlikeTweetsMutation()
+
+  const handleLike = async() => {
+    await likeAndUnlikeTweets({userId: user?._id, postId: tweet?._id})
+    refetch()
+  }
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white w-full'>
      
       <div className='flex flex-col gap-4 pl-4 pr-4 relative'>
         <div className='flex items-center justify-between'>
@@ -40,11 +49,11 @@ export const SingleTweet = ({ tweet, user }) => {
         <div className='flex items-center gap-1 font-medium'>
           <div className='flex items-center gap-1 font-medium hover:underline cursor-pointer'>
             <p className='flex items-center gap-1'>
-              <span className='text-gray-500'>8:48</span>
+              <span className='text-gray-500'>{false ? '8:58 PM' : format(new Date(tweet?.postDate.split('T')[0]), 'p')}</span>
               <span className='text-gray-400'>&#x2022;</span>
             </p>
             <p className='flex items-center gap-1'>
-              <span className='text-gray-500'>Nov 26, 2022</span>
+              <span className='text-gray-500'>{false ? 'MAY 19, 2022' : format(new Date(tweet?.postDate.split('T')[0]), 'MMM dd, yyyy')}</span>
               <span className='text-gray-500'>&#x2022;</span>
             </p>
           </div>
@@ -53,7 +62,7 @@ export const SingleTweet = ({ tweet, user }) => {
         <hr />
         <div className='flex items-center gap-6'>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
-            <span className='font-medium'>{tweet?.isShared.length}</span>
+            <span className='font-medium'>{tweet?.isShared?.length}</span>
             <span className='text-gray-500'>Retweets</span>
           </p>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
@@ -61,23 +70,27 @@ export const SingleTweet = ({ tweet, user }) => {
             <span className='text-gray-500'>Quote Tweets</span>
           </p>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
-            <span className='font-medium'>{tweet?.likes.length}</span>
+            <span className='font-medium'>{tweet?.likes?.length}</span>
             <span className='text-gray-500'>Likes</span>
           </p>
         </div>
         <hr />
-        <div className='flex items-center justify-around w-full'>
-          <p className='text-gray-500 cursor-pointer hover:bg-blue-100 hover:text-blue-500 p-1 hover:rounded-full text-2xl'>
+        <div className='flex items-center gap-24 justify-center midscreen:gap-16 w-full'>
+          <p className='flex items-center gap-2 text-gray-500 cursor-pointer hover:bg-blue-100 hover:text-blue-500 p-1 hover:rounded-full text-2xl'>
             <AiOutlineComment />
+            <span>{tweet?.commentIds?.length}</span>
           </p>
           <p className='text-gray-500 cursor-pointer hover:bg-green-100 hover:text-green-500 p-[4px] hover:rounded-full text-2xl'>
             <AiOutlineRetweet />
           </p>
-          <p className='text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-400 p-[4px] hover:rounded-full text-2xl'>
-            {false ? 
-            <AiFillHeart className='text-red-500'/>
-              : <AiOutlineHeart />
+          <p className='text-gray-500 cursor-pointer hover:bg-red-200 hover:text-red-400 p-[4px] hover:rounded-full text-2xl flex items-center gap-2'>
+            {
+              tweet?.likes.includes(user?._id) ? 
+                <AiFillHeart onClick={handleLike} className={`${tweet?.likes.includes(user?._id) && 'text-red-500'}`}/>
+                : 
+                <AiOutlineHeart onClick={handleLike} />
             }
+            <span className={`${tweet?.likes.includes(user?._id) ? 'text-red-500' : 'text-gray-700'}`}>{tweet?.likes?.length}</span>
           </p>
           <div className='text-gray-500 cursor-pointer hover:bg-gray-100 hover:text-blue-400 p-[4px] hover:rounded-full text-2xl'>
             <FiShare />
@@ -86,21 +99,14 @@ export const SingleTweet = ({ tweet, user }) => {
         <hr />
         <div className='flex items-center w-full gap-2 h-full'>
           <img src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60' alt='' className='flex-none w-16 h-16 rounded-full object-cover cursor-pointer'/>
-          <div className='flex-auto h-full flex items-center pl-2 pr-2 w-full'>
-            <input 
-              type="text" 
-              name="" 
-              placeholder='Tweet your reply'
-              className='flex-auto placeholder:font-medium placeholder:text-[20px] h-full pl-0 pr-0 p-2 border-none focus:outline-none text-lg'
-            />
-            <button 
-              className='flex-none rounded-full p-2 pl-5 pr-5 bg-blue-500 text-white font-semibold'>
-                Reply
-            </button>
-          </div>
+          <CommentRes 
+            postId={tweet?._id} 
+            userId={user?._id}
+            refetch={refetch}
+          />
         </div>  
         <hr />
-        {display2 && <Card singleUser={user} singleTweet={true} setDisplay2={setDisplay2}/>}
+        {display2 && <Card singleUser={user} singleTweet={true}  setDisplay2={setDisplay2}/>}
       </div>
     </div>
   )

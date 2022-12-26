@@ -38,6 +38,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
       })
     }),
 
+    getNewAccessToken: builder.query({
+      query: () => '/users/get_accessToken'
+    }),
+
     logout: builder.query({
       query: () => '/users/logout',
       //invalidatesTags: [{ type: 'USERS', id: 'LIST' }]
@@ -47,5 +51,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
 export const { 
   useLoginMutation, useRegisterUserMutation, useResetPasswordMutation,
-  useSendResetPasswordMutation, useLogoutQuery
+  useSendResetPasswordMutation, useLogoutQuery, useGetNewAccessTokenQuery
 } = authApiSlice

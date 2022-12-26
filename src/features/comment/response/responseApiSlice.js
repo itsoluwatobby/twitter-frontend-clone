@@ -1,7 +1,7 @@
 import { apiSlice } from "../../../app/api/apiSlice";
 
 function providesList(resultsId, tagTypes){
-  return resultsId ? [...resultsId.map(({id}) => ({ type: tagTypes, id })), 
+  return resultsId ? [...resultsId.map(({ _id }) => ({ type: tagTypes, id: _id })), 
                       { type: tagTypes, id: 'LIST' }]
                      : [{ type: tagTypes, id: 'LIST' }]
 }
