@@ -1,24 +1,36 @@
 import { FiShare } from 'react-icons/fi';
 import { AiOutlineComment, AiFillHeart, AiOutlineRetweet, AiOutlineHeart } from 'react-icons/ai';
 import { useLikeAndUnlikeCommentsMutation, useLikeAndUnlikeTweetsMutation } from '../../features/tweets/likeAndUnlikeTweetApiSlice';
+import { useDispatch } from 'react-redux';
+import { openComment } from '../../features/users/usersSlice'
 
-export const TweetBase = ({post, centerTweet, postComment}) => {
+export const TweetBase = ({
+  post, centerTweet, postComment, setCreateComment
+}) => {
   const userId = localStorage.getItem('userId');
-  const [likeAndUnlikeTweets] = useLikeAndUnlikeTweetsMutation()
-  const [likeAndUnlikeComments] = useLikeAndUnlikeCommentsMutation()
+  const [likeAndUnlikeTweets] = useLikeAndUnlikeTweetsMutation();
+  const [likeAndUnlikeComments] = useLikeAndUnlikeCommentsMutation();
+  const dispatch = useDispatch();
 
   const handleLike = async() => {
     await likeAndUnlikeTweets({userId, postId: post?._id})
   }
-console.log(postComment)
+
   const handleCommentLike = async() => {
     await likeAndUnlikeComments({ userId, commentId: postComment?._id })
     //refetch()
   }
 
+  const switchComment = () => {
+    dispatch(openComment(true))
+    setCreateComment(true)
+  }
+
   return (
     <div className='flex items-center gap-24 mildscreen:gap-[60px] ml-16 w-full'>
-      <div className='flex items-center gap-3 cursor-pointer'>
+      <div 
+        onClick={switchComment}
+        className='flex items-center gap-3 cursor-pointer'>
         <p className='text-gray-700 cursor-pointer hover:bg-blue-100 hover:text-blue-500 p-[4px] hover:rounded-full text-[20px]'>
           <AiOutlineComment />
         </p>

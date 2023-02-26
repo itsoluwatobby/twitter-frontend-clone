@@ -17,7 +17,7 @@ const NewPassword = () => {
    const [sendResetPassword, {isLoading, isError, isSuccess, reset}] = useSendResetPasswordMutation();
    const location = useLocation();
    const emailAd = location?.search.split('=')[1]
-   console.log(emailAd)
+   const timeout = 3000;
    
    useEffect(() => {
     const validPass = PASSWORD_REGEX.test(password);
@@ -25,7 +25,12 @@ const NewPassword = () => {
     const match = password === confirmPassword;
     setMatch(match)
  }, [password, confirmPassword])
-console.log(isSuccess)
+
+ useEffect(() => {
+  setTimeout(() => {
+    setErrorMessage(null)
+  }, timeout);
+}, [errorMessage])
  const canSave = [password, confirmPassword].every(Boolean)
 
    const handleRegister = async(e) => {

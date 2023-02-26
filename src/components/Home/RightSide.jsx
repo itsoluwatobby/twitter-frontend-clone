@@ -8,10 +8,11 @@ import { Link } from 'react-router-dom';
 import { TRENDS } from '../../../data/data'
 import { selectCurrentUser } from '../../features/auth/authSlice'
 import { useGetAllUsersQuery } from '../../features/users/userApiSlice'
-import { allUsers } from '../../features/users/usersSlice';
+import { allUsers, switchComment } from '../../features/users/usersSlice';
 
 export const RightSide = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const createCommentBg = useSelector(switchComment);
   const userId = localStorage.getItem('userId')
   const { data, isLoading } = useGetAllUsersQuery(userId);
   const [search, setSearch] = useState('');
@@ -31,7 +32,7 @@ export const RightSide = () => {
   }, [data, currentUser])
 
   return (
-    <aside className='mildscreen:hidden relative flex-none w-[30%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center'>
+    <aside className={`mildscreen:hidden relative flex-none w-[30%] pt-4 pr-2 pl-2 h-full flex flex-col space-y-2 items-center ${createCommentBg ? 'bg-gray-400' : 'bg-white'}`}>
       <div className='w-[97%] flex flex-col gap-4'>
         <div className='flex p-2.5 rounded-2xl items-center gap-2 bg-gray-200 w-full relative'>
           <BiSearch className='text-[22px]'/>

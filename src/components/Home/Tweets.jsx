@@ -6,20 +6,27 @@ import { TweetBase } from './TweetBase';
 import { Link } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import {formatDistanceToNow, parseISO, format} from 'date-fns';
-import { useSelector } from 'react-redux';
-import { getUserTweets } from '../../features/users/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserTweets, openComment, switchComment } from '../../features/users/usersSlice';
 import { useGetUserQuery } from '../../features/users/userApiSlice';
 import { useEffect } from 'react';
+import { Comment } from '../Comment';
 
 export const Tweets = (
   { post, centerTweet, postComment }) => {
   const [display, setDisplay] = useState(false)
   const [userRes, setUserRes] = useState(false)
+  const [createComment, setCreateComment] = useState(false)
   //const user = useSelector(state => getUserTweets(state, post?._id))
   const {data: user} = useGetUserQuery(post?.userId)
   const {data: userComment} = useGetUserQuery(postComment?.userId)
   const [width, setWidth] = useState(undefined);
   const [resize, setResize] = useState(false);
+  const dispatch = useDispatch();
+
+  const closeComment = () => {
+    dispatch(openComment(false));
+  }
 
   useEffect(() => {
     const widthListener = () => setWidth(window.innerWidth);
@@ -33,7 +40,7 @@ export const Tweets = (
   }, [width])
 
   return (
-    <div className='relative bg-white hover:bg-slate-100 pr-4 pl-4 pt-2 pb-2 flex flex-col border-b-[1px] w-full gap-2'>
+    <div className='relative hover:bg-slate-100 pr-4 pl-4 pt-2 pb-2 flex flex-col border-b-[1px] w-full gap-2'>
       <div className='w-full flex items-center'>
         {centerTweet && userComment?.profilePic ?
           <img src={centerTweet ? userComment?.profilePic : user?.profilePic} alt={centerTweet ? userComment?.firstName : user?.firstName} 
@@ -75,7 +82,9 @@ export const Tweets = (
             </p>
           }
           <Link to={`/tweet/tweetPage/${post?._id}/${user?._id}`}>
-            <p className='w-full'>{centerTweet ? (postComment?.body.length >= 75 ? postComment?.body.slice(0, 75)+'...' : postComment?.body) : (post?.body.length >= 75 ? post?.body.slice(0, 75)+'...' : post?.body)}
+            <p 
+              onClick={closeComment}
+              className='w-full'>{centerTweet ? (postComment?.body.length >= 75 ? postComment?.body.slice(0, 75)+'...' : postComment?.body) : (post?.body.length >= 75 ? post?.body.slice(0, 75)+'...' : post?.body)}
             </p>
           </Link>
         </div>
@@ -95,10 +104,23 @@ export const Tweets = (
         }
       </div>
       {/* base */}
-      <TweetBase post={post} centerTweet={true} postComment={postComment}/>
+      <TweetBase 
+        post={post} centerTweet={true} 
+        postComment={postComment}
+        setCreateComment={setCreateComment}
+      />
       {display ? <Card user={user} setDisplay={setDisplay} centerTweet postComment={postComment} userRes={userRes} setUserRes={setUserRes}/>
       : 
       userRes && <Card userRes={userRes} setUserRes={setUserRes}/>
+      }
+      {createComment &&
+        <Comment Tweets
+          post={post} 
+          user={user} 
+          resize={resize}
+          createComment={createComment}
+          setCreateComment={setCreateComment}
+        />
       }
     </div>
   )

@@ -2,21 +2,25 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const usersSlice = createSlice({
   name: 'users',
-  initialState: { users: [], tweets: [] },
+  initialState: { users: [], tweets: [], createComment: false },
   reducers: {
     allUsers: (state, action) => {
       state.users = action.payload
     },
     allTweets: (state, action) => {
       state.tweets = action.payload
+    },
+    openComment: (state, action) => {
+      state.createComment = action.payload
     }
   }
 })
 
 export const selectAllUsers = state => state?.users?.users
 export const selectAllTweets = state => state?.users?.tweets
+export const switchComment = state => state?.users?.createComment
 
-export const { allUsers, allTweets } = usersSlice.actions
+export const { allUsers, allTweets, openComment } = usersSlice.actions
 
 export const getSingleUser = (state, userId) => {
   return state?.users?.users.find(user => user?._id === userId)

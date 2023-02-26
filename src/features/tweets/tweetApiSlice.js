@@ -12,7 +12,7 @@ export const tweetApiSlice = apiSlice.injectEndpoints({
     //fetching single post
     fetchSinglePost: builder.query({
       query: (postId) => `/tweets/getPost/${postId}`,
-      providesTags: result => ['POSTS'] 
+      providesTags: result => [{ type: 'POSTS', id: 'LIST' }]
     }),
 
     //fetch all posts

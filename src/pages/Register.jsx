@@ -24,6 +24,8 @@ const Register = () => {
       confirmPassword: ''
    });
 
+   const timeout = 3000;
+
    const [registerUser, 
     {isLoading, isError, isSuccess, error, reset}] = useRegisterUserMutation()
 
@@ -39,6 +41,13 @@ const Register = () => {
   //     const result = [USER_REGEX.test(firstName), USER_REGEX.test(lastName)].every(Boolean);
   //     setValidName(result)
   //  }, [firstName, lastName])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRegister({firstName: null, lastName: null, email: null, password: null, confirmPassword: null})
+      setErrorMessage(null)
+    }, timeout);
+  }, [errorMessage])
 
    useEffect(() => {
       const result = EMAIL_REGEX.test(email);
@@ -135,7 +144,7 @@ const Register = () => {
               </div>
               <div className='w-full flex flex-col'>
                 <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='email'>
-                    Email: {!email ? '' : validEmail ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
+                    Email: {(email && !errorMessage) && (validEmail ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/>) }
                 </label>
                 <input 
                     type="email" placeholder='johnDoe@mail.co'
@@ -146,7 +155,7 @@ const Register = () => {
                     onChange={handleChange}   
                 />
               </div>
-              {!validEmail && email &&
+              {(!validEmail && email && !errorMessage) &&
                 <div className='w-full -mt-2 -mb-1 p-0.5 pl-[5px] bg-black rounded-[10px] lowercase flex flex-col text-left'>
                     <FaInfoCircle className='text-xs text-white'/>
                     <ul className='pl-2.5 text-xs flex flex-col'>
@@ -163,7 +172,7 @@ const Register = () => {
               {errorMessage && errorContent}
               <div className='w-full flex flex-col'>
                 <label className='flex items-center gap-1 font-semibold mb-0 text-sm' htmlFor='password'>
-                    Password: {!password ? '' : validPassword ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/> }
+                    Password: {(password && !errorMessage) && (validPassword ? <FaCheck className='text-green-500 text-xl p-0 -mt-[5px] -mb-2.5'/> : <FaTimes className='text-red-500 text-2xl -mt-2.5 -mb-2.5'/>) }
                 </label>
                 <div className="flex items-center rounded-[10px] border border-gray-300 h-9 relative">
                   <input 
@@ -187,7 +196,7 @@ const Register = () => {
                   }
                 </div>
               </div>
-              {!validPassword && password &&
+              {(!validPassword && password && !errorMessage) &&
                 <div className='w-full -mt-2 -mb-1 p-0.5 pl-[2px] bg-black rounded-[10px] lowercase flex text-left'>
                   <FaInfoCircle className='text-xs text-white'/>
                   <ul className='pl-2.5 text-xs flex flex-col'>
@@ -226,7 +235,7 @@ const Register = () => {
                   }
               </div>
             </div>
-            {validPassword && !match && confirmPassword &&
+            {validPassword && !match && confirmPassword && !errorMessage &&
               <p className='bg-black text-white flex rounded-[10px] items-center text-xs p-1.5 -mt-[9px] -mb-[5px]'>
                   <FaInfoCircle />
                   <span className='pl-2.5'>
@@ -244,7 +253,7 @@ const Register = () => {
             }
               <button type="submit" 
                   className={`h-10 rounded-lg border-none text-white text-xl font-medium cursor-pointer transition duration-150 ease-in-out hover:text-white hover:brightness-75 active:brightness-100 ${!canSave ? 'bg-gray-400' : 'bg-blue-500'}`} 
-                  disabled={!canSave && !match && !validPassword}
+                  disabled={!canSave && !match}
                   >Sign Up</button>
             
               <p 

@@ -9,11 +9,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectCurrentUser } from '../../features/auth/authSlice'
 import { useLogoutQuery } from '../../features/users/authApiSlice'
+import { switchComment } from '../../features/users/usersSlice'
 
 export const LeftSide = () => {
   const {pathname} = useLocation();
   const currentUser = useSelector(selectCurrentUser);
   const userId = localStorage.getItem('userId');
+  const createCommentBg = useSelector(switchComment);
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -23,7 +25,7 @@ export const LeftSide = () => {
   }
 
   return (
-    <aside className='minscreen:pl-1.5 pl-12 pb-2 pr-2 bg-white max-w-[25%] h-screen flex flex-col justify-between pt-4 sticky top-0 flex-none'>
+    <aside className={`minscreen:pl-1.5 pl-12 pb-2 pr-2 h-screen w-[22%] minscreen:w-[13%] flex flex-col justify-between pt-4 sticky top-0 flex-none ${createCommentBg ? 'bg-gray-400' : 'bg-white'}`}>
       <div className='minscreen:ml-2 flex-none mb-2 rounded-full hover:bg-blue-100 cursor-pointer grid place-content-center h-[52px] w-[52px]'>
         <FaTwitter className='text-blue-500 text-3xl'/>
       </div>

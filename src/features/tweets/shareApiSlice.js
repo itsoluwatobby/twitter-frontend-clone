@@ -14,7 +14,7 @@ export const shareApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: ''
       }),
-      invalidatesTags: ['SHARED']
+      invalidatesTags: [{ type: 'SHARED', id: 'LIST' }]
     }),
 
     unSharePost: builder.mutation({
@@ -23,7 +23,7 @@ export const shareApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: ''
       }),
-      invalidatesTags: ['SHARED']
+      invalidatesTags: [{ type: 'SHARED', id: 'LIST' }]
     }),
 
     getSharedPost: builder.query({

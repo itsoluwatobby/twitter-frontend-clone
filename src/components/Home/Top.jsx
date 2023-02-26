@@ -54,7 +54,7 @@ export const Top = () => {
   }
 
   return (
-    <header onClick={() => setErrorMessage(null)} className='bg-white relative flex flex-col w-full pl-2 pr-2 pb-3 gap-1 border-b-[1px]'>
+    <header onClick={() => setErrorMessage(null)} className='relative flex flex-col w-full pl-2 pr-2 pb-3 gap-1 border-b-[1px]'>
       <div className='cursor-pointer hover:bg-opacity-50 flex p-2.5 rounded-2xl items-center bg-transparent w-full'>
         <div className='absolute top-3 w-14 h-14 rounded-full bg-blue-500 flex-none'></div>
         {/* <img src={post?.profilePic} alt={post?.name} 
