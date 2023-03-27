@@ -15,7 +15,7 @@ import { Success } from './pages/Success'
 function App() {
 
   return (
-    <div className="App overflow-x-hidden container h-screen">
+    <div className="App overflow-x-hidden ">
       <Routes>
         <Route path='/' element={<PublicRoute />}>
 

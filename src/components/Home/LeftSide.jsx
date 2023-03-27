@@ -25,7 +25,7 @@ export const LeftSide = () => {
   }
 
   return (
-    <aside className={`minscreen:pl-1.5 pl-12 pb-2 pr-2 h-screen w-[22%] minscreen:w-[13%] flex flex-col justify-between pt-4 sticky top-0 flex-none ${createCommentBg ? 'bg-gray-400' : 'bg-white'}`}>
+    <aside className={`minscreen:pl-1.5 pl-12 pb-2 pr-2 h-screen w-[22%] minscreen:w-[13%] flex flex-col justify-between pt-4 sticky top-0 m-auto flex-none ${createCommentBg ? 'bg-gray-400' : 'bg-white'}`}>
       <div className='minscreen:ml-2 flex-none mb-2 rounded-full hover:bg-blue-100 cursor-pointer grid place-content-center h-[52px] w-[52px]'>
         <FaTwitter className='text-blue-500 text-3xl'/>
       </div>
