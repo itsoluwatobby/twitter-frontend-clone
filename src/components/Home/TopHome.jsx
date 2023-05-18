@@ -11,7 +11,7 @@ export const TopHome = ({ centerTweet, profile, explore, user }) => {
   const currentUser = useSelector(selectCurrentUser)
 
   return (
-    <div className={profile && 'bg-white flex items-center w-full bg-opacity-[0.97] gap-7 p-3 pt-1 pb-1 z-50 sticky top-0' ||explore && 'bg-white flex items-center w-full justify-center p-3 pt-2 pb-2 sticky top-0 z-50 bg-opacity-[0.97]' || centerTweet && 'bg-white flex items-center font-semibold tracking-wider gap-8 p-3 text-lg sticky top-0 z-50 bg-opacity-[0.97]' || 'flex w-full items-center justify-between text-2xl sticky top-0 p-3 pr-4 pl-4 z-50'}>
+    <div className={profile && 'bg-white flex items-center w-full bg-opacity-[0.97] gap-7 p-3 pt-1 pb-1 z-50 sticky top-0' ||explore && 'bg-white flex items-center w-full justify-center p-3 pt-2 pb-2 sticky top-0 z-50 bg-opacity-[0.97]' || centerTweet && 'bg-white flex items-center font-semibold tracking-wider gap-8 p-3 text-lg sticky top-0 z-50 bg-opacity-[0.97]' || 'flex w-full items-center justify-between text-2xl sticky top-0 p-3 pr-4 pl-4 z-50 bg-white'}>
       {centerTweet && 
         <>
           <div 

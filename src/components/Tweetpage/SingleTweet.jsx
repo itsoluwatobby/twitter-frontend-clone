@@ -46,21 +46,21 @@ export const SingleTweet = (
         </div>
         {/* Post */}
         <p className='text-lg font-medium'>{tweet?.body}</p>
-        <div className='flex items-center gap-1 font-medium'>
+        <div className='flex items-center gap-1.5 font-medium text-small whitespace-nowrap'>
           <div className='flex items-center gap-1 font-medium hover:underline cursor-pointer'>
             <p className='flex items-center gap-1'>
               <span className='text-gray-500'>{false ? '8:58 PM' : format(new Date(tweet?.postDate.split('T')[0]), 'p')}</span>
               <span className='text-gray-400'>&#x2022;</span>
             </p>
             <p className='flex items-center gap-1'>
-              <span className='text-gray-500'>{false ? 'MAY 19, 2022' : format(new Date(tweet?.postDate.split('T')[0]), 'MMM dd, yyyy')}</span>
+              <span className='text-gray-500'>{false ? 'MAY 19, 2022' : format(new Date(tweet?.postDate.split('T')[0]), 'M-dd-yy')}</span>
               <span className='text-gray-500'>&#x2022;</span>
             </p>
           </div>
-          <p className='text-gray-500 hover:underline cursor-pointer'>Twitter for andriod</p>
+          <p className='text-gray-500 hover:underline cursor-pointer whitespace-nowrap'>Twitter for andriod</p>
         </div>
         <hr />
-        <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-6 text-small'>
           <p className='flex items-center gap-1 cursor-pointer hover:underline'>
             <span className='font-medium'>{tweet?.isShared?.length}</span>
             <span className='text-gray-500'>Retweets</span>

@@ -18,7 +18,7 @@ export const Comment = ({
   }
 
   return (
-    <article className='z-10 absolute w-[85%] rounded-lg bg-white top-2 shadow-2xl flex flex-col p-3 pb-4'>
+    <article className='z-10 absolute w-[85%] rounded-lg bg-red-500 top-2 shadow-2xl flex flex-col p-3 pb-4'>
       <FaTimes 
         onClick={switchComment}
         className='cursor-pointer text-2xl font-medium translate-x-[410px] text-gray-600'

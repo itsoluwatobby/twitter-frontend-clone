@@ -56,12 +56,12 @@ export const Tweets = (
                 onMouseLeave={() => setDisplay(false)}
                 className='flex items-center gap-1'>
                 <Link to={`${centerTweet ? `tweet/profile/${postComment?._id}` : `tweet/profile/${user?._id}`}`}>
-                  <span className='capitalize font-semibold cursor-pointer hover:underline'>{centerTweet ? (resize || userComment?.firstName.length < 6 ? userComment?.firstName : userComment?.firstName.slice(0, 10)+'...') : (resize || user?.firstName.length < 6 ? user?.firstName : user?.firstName.slice(0, 10)+'...')}</span>
+                  <span className='capitalize font-semibold cursor-pointer hover:underline'>{centerTweet ? (resize || userComment?.firstName.length < 6 ? userComment?.firstName : userComment?.firstName.slice(0, 10)+'...') : (resize || user?.firstName.length < 6 ? user?.firstName : user?.firstName.slice(0, 5)+'...')}</span>
                 </Link>
                 {/* checkmark here */}
                 <BsPatchCheckFill className='text-blue-500 text-[19px]'/>
                 <Link to={`${centerTweet ? `tweet/profile/${postComment?._id}` : `tweet/profile/${user?._id}`}`}>
-                  <span className='text-gray-600 cursor-pointer'>{centerTweet ? (resize || userComment?.email.length < 6 ? userComment?.email : userComment?.email.slice(0, 10)+'...') : (resize || user?.email.length < 6 ? user?.email : user?.email.slice(0, 10)+'...')}</span>
+                  <span className='text-gray-600 cursor-pointer'>{centerTweet ? (resize || userComment?.email.length < 6 ? userComment?.email : userComment?.email.slice(0, 5)+'...') : (resize || user?.email.length < 6 ? user?.email : user?.email.slice(0, 5)+'...')}</span>
                 </Link>
                 <span className='text-gray-600'>&#x2022;</span>
               </p>

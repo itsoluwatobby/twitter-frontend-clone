@@ -30,7 +30,7 @@ export const CommentRes = ({ postId, userId, refetch }) => {
   }
 
   return (
-    <div className='flex-auto h-full flex items-center pl-2 pr-2 w-full'>
+    <div className='flex-auto h-full flex text-small items-center pl-2 pr-2 w-full'>
       <input 
         type="text" 
         value={comment} 
